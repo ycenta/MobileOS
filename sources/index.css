@@ -1,0 +1,52 @@
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    grid-gap: 10px; /* Espacement entre les éléments */
+    padding: 10px; /* Espacement extérieur */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    justify-items: center
+  }
+  
+  .grid-item {
+    background-color: #f2f2f2; /* Couleur de fond */
+    width: 80px; /* Taille de l'élément (carré) */
+    height: 80px; /* Taille de l'élément (carré) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* Taille de police */
+    color: #333; /* Couleur de police */
+    border-radius: 8px; /* Coins arrondis */
+    padding: 20px; /* Espacement intérieur */
+    
+  }
+  
+  .grid-item:active {
+    /* Style pour l'état actif (appuyé) */
+    background-color: #ccc;
+  }
+
+.overlay{
+    position: fixed; /* Fixer la position de l'élément */
+    top: 0; /* Coller à la partie supérieure de la page */
+    left: 0; /* Coller à la partie gauche de la page */
+    width: 100%; /* Utiliser la largeur totale de la page */
+    height: 100%; /* Utiliser la hauteur totale de la page */
+    background-color: rgba(0,0,0,0.5); /* Couleur de fond semi-transparente */
+    z-index: 999; /* Mettre l'élément au-dessus des autres éléments */
+    display: none; /* Cacher l'élément par défaut */
+}
+
+.app-overlay{
+    height: 100%;
+}
+
+.close-btn {
+    position: absolute; /* Positionner l'élément en absolu */
+    top: 10px; /* Coller à la partie supérieure de l'application */
+    right: 10px; /* Coller à la partie droite de l'application */
+    font-size: 24px; /* Taille de police */
+    color: #fff; /* Couleur de police */
+    cursor: pointer; /* Cursor pour indiquer qu'il s'agit d'un lien */
+}
