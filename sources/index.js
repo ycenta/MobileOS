@@ -23,6 +23,7 @@ class ApplicationEngine {
     }
 
     createApplication(name, backgroundColor, methods) {
+        console.log(backgroundColor);
         return {
             name: name,
             backgroundColor: backgroundColor,
@@ -69,8 +70,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 appDiv.classList.add("grid-item");
                 appDiv.classList.add("open-app-button");
                 appDiv.setAttribute("data-app-name", app.name);
+                appDiv.setAttribute("data-app-background-color", app.settings.backgroundColor);
                 // add dragable = true
                 appDiv.setAttribute("draggable", "true");
+                appDiv.style.backgroundColor = app.settings.backgroundColor;
                 gridContainer.appendChild(appDiv);
             });
 
@@ -84,6 +87,51 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     );
 
+    const time = document.getElementById("time");
+    setInterval(() => {
+        time.innerHTML = new Date().toLocaleTimeString();
+    }, 1000);
+
+    // current date
+    const date = document.getElementById("date");
+    date.innerHTML = new Date().toLocaleDateString();
+
+    // vibration status
+    const vibrationStatus = document.getElementById("vibration-status");
+    if (navigator.vibrate) {
+        vibrationStatus.innerHTML = "Vibration On";
+    } else {
+        vibrationStatus.innerHTML = "Vibration Off";
+    }
+
+    //Battery %
+    const batteryStatus = document.getElementById("battery-status");
+    navigator.getBattery().then(battery => {
+        // show battery level with thoses characters : ▂▃▅▆█
+        if(battery.level < 0.2) {
+            batteryStatus.innerHTML = `Batterie: ▂ ${battery.level * 100}%`;
+        } else if(battery.level < 0.4) {
+            batteryStatus.innerHTML = `Batterie: ▃ ${battery.level * 100}%`;
+        } else if(battery.level < 0.6) {
+            batteryStatus.innerHTML = `Batterie: ▅ ${battery.level * 100}%`;
+        } else if(battery.level < 0.8) {
+            batteryStatus.innerHTML = `Batterie: ▆ ${battery.level * 100}%`;
+        } else {
+            batteryStatus.innerHTML = `Batterie: █ ${battery.level * 100}%`;
+        }
+    });
+
+    // réseau
+    const networkLatency = document.getElementById("network-latency");
+    const startTime = performance.now();
+    fetch("https://jsonplaceholder.typicode.com/todos/1")
+        .then(response => response.json())
+        .then(data => {
+            const endTime = performance.now();
+            const latency = endTime - startTime;
+            networkLatency.innerHTML = `Network latency: ${latency}ms`;
+        });
+
 });
 
 const appEngine = new ApplicationEngine();
@@ -92,7 +140,7 @@ const appEngine = new ApplicationEngine();
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("open-app-button")) {
         console.log('test');
-        let myApp = appEngine.createApplication(e.target.getAttribute("data-app-name"), "#7171c1");
+        let myApp = appEngine.createApplication(e.target.getAttribute("data-app-name"), e.target.getAttribute("data-app-background-color"));
         appEngine.openApplication(myApp);
     }
 });

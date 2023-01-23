@@ -3,21 +3,21 @@
         {
             "name" : "app 1",
             "settings" : {
-                "backgroundColor" : "red",
+                "backgroundColor" : "#d7b1b1",
                 "setting2" : "value2"
             }
         },
         {
             "name" : "app 2",
             "settings" : {
-                "backgroundColor" : "blue",
+                "backgroundColor" : "#b1bdd7",
                 "setting2" : "value2"
             }
         },
         {
             "name" : "app 3",
             "settings" : {
-                "backgroundColor" : "green",
+                "backgroundColor" : "#b1d7b5",
                 "setting2" : "value2"
             }
         }
