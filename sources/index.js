@@ -1,6 +1,3 @@
-console.log("Hello, ESGI!")
-
-
 // CLASS APPLICATION ENGINE
 class ApplicationEngine {
     constructor() {
@@ -57,15 +54,49 @@ class ApplicationEngine {
 
 // JS CODE HOME PAGE
 
-const appEngine = new ApplicationEngine();
+document.addEventListener("DOMContentLoaded", function() {
 
-const myApp = appEngine.createApplication("Mon Application", "#7171c1");
+    fetch("defaultApp.json")
+        .then(response => response.json())
+        .then(data => {
+            const gridContainer = document.getElementById("grid-container");
+            data['applications'].forEach(app => {
 
-document.getElementById("open-app-button").addEventListener("click", () => {
-  appEngine.openApplication(myApp);
-  console.log(myApp.name);
+                // insert div in div #grid-container
+                const appDiv = document.createElement("div");
+                appDiv.classList.add("app");
+                appDiv.innerHTML = app.name;
+                appDiv.classList.add("grid-item");
+                appDiv.classList.add("open-app-button");
+                appDiv.setAttribute("data-app-name", app.name);
+                // add dragable = true
+                appDiv.setAttribute("draggable", "true");
+                gridContainer.appendChild(appDiv);
+            });
+
+            // Créer un tableau des applications au lieu de store dans un data attribute?
+
+            // create app
+            // const appEngine = new ApplicationEngine();
+            // const myApp = appEngine.createApplication(data.name, data.backgroundColor, data.methods);
+            // // open app
+            // appEngine.openApplication(myApp);
+        }
+    );
+
 });
 
+const appEngine = new ApplicationEngine();
+
+// on click on class .open-app-button 
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("open-app-button")) {
+        console.log('test');
+        let myApp = appEngine.createApplication(e.target.getAttribute("data-app-name"), "#7171c1");
+        appEngine.openApplication(myApp);
+    }
+});
+// on click on class "open_app_button"
 
 // close button event when class "close-btn" is clicked
 document.addEventListener("click", (e) => {

@@ -1,0 +1,25 @@
+{
+    "applications": [
+        {
+            "name" : "app 1",
+            "settings" : {
+                "backgroundColor" : "red",
+                "setting2" : "value2"
+            }
+        },
+        {
+            "name" : "app 2",
+            "settings" : {
+                "backgroundColor" : "blue",
+                "setting2" : "value2"
+            }
+        },
+        {
+            "name" : "app 3",
+            "settings" : {
+                "backgroundColor" : "green",
+                "setting2" : "value2"
+            }
+        }
+    ]
+}
