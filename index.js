@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const batteryStatus = document.getElementById("battery-status");
     navigator.getBattery().then(battery => {
         // show battery level with thoses characters : ▂▃▅▆█
+        // remplacer ça par un modulo pour éviter les if
         if(battery.level < 0.2) {
             batteryStatus.innerHTML = `Batterie: ▂ ${battery.level * 100}%`;
         } else if(battery.level < 0.4) {
