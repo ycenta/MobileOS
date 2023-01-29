@@ -195,14 +195,14 @@ function handleOrientation(event) {
   // To make computation easier we shift the range of
   // x and y to [0,180]
   x += 90;
-  y += 45;
+  y += 90;
 
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
-//   ball.style.top = `${(maxY * y) / 180 - 10}px`;
-//   ball.style.left = `${(maxX * x) / 180 - 10}px`;
+  ball.style.top = `${(maxY * y) / 180 - 10}px`;
+  ball.style.left = `${(maxX * x) / 180 - 10}px`;
 
-  document.documentElement.style.setProperty("--r-x", (y/2) + "deg");
+  document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
 //   print current --r-x value
 output.textContent += (getComputedStyle(document.documentElement).getPropertyValue("--r-x"));
 }
