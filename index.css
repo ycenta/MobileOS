@@ -32,6 +32,8 @@ body{
     color: #333; /* Couleur de police */
     border-radius: 8px; /* Coins arrondis */
     padding: 20px; /* Espacement intérieur */
+
+    transform: rotateY(var(--r-x)) rotateX(var(--r-y));
     
   }
   
