@@ -203,6 +203,8 @@ function handleOrientation(event) {
   ball.style.left = `${(maxX * x) / 180 - 10}px`;
 
   document.documentElement.style.setProperty("--r-x", (y/2) + "deg");
+//   print current --r-x value
+output.textContent += (getComputedStyle(document.documentElement).getPropertyValue("--r-x"));
 }
 
 window.addEventListener("deviceorientation", handleOrientation);
