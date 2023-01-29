@@ -181,6 +181,7 @@ function handleOrientation(event) {
 
   output.textContent = `beta : ${x}\n`;
   output.textContent += `gamma: ${y}\n`;
+  output.textContent += `Current deg: ${(y/2)}\n`;
 
   // Because we don't want to have the device upside down
   // We constrain the x value to the range [-90,90]
@@ -201,7 +202,7 @@ function handleOrientation(event) {
   ball.style.top = `${(maxY * y) / 180 - 10}px`;
   ball.style.left = `${(maxX * x) / 180 - 10}px`;
 
-  document.documentElement.style.setProperty("--r-x", y + "deg");
+  document.documentElement.style.setProperty("--r-x", (y/2) + "deg");
 }
 
 window.addEventListener("deviceorientation", handleOrientation);
