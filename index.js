@@ -205,3 +205,4 @@ function handleOrientation(event) {
 }
 
 window.addEventListener("deviceorientation", handleOrientation);
+alert("Device Orientation API is supported");

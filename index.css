@@ -33,7 +33,7 @@ body{
     border-radius: 8px; /* Coins arrondis */
     padding: 20px; /* Espacement intérieur */
 
-    transform: rotateY(var(--r-x)) rotateX(var(--r-y));
+    transform: rotateY(var(--r-x));
     
   }
   
