@@ -22,7 +22,7 @@ class ApplicationEngine {
         }
     }
 
-    createApplication(name, backgroundColor, methods) {
+    createApplication(name, backgroundColor, methods, app_file) {
         console.log(backgroundColor);
         return {
             name: name,
@@ -34,6 +34,8 @@ class ApplicationEngine {
                 app.innerHTML = this.name;
                 app.style.backgroundColor = this.backgroundColor;
                 app.classList.add("app-overlay");
+                // add id = "app-overlay-id"
+                app.setAttribute("id", "app-overlay-id");
 
                 // ajout d'un bouton fermer pour debug
                 const closeBtn = document.createElement("div");
@@ -42,6 +44,14 @@ class ApplicationEngine {
                 for (let method in methods) {
                     app[method] = methods[method];
                 }
+
+                // Import du code de l'application
+                import("/Apps/"+app_file+".js").then(module => {
+                    module.default.loadApp();
+                }).catch(error => {
+                    console.log(error);
+                });
+
                 app.appendChild(closeBtn);
                 return app;
             }
@@ -71,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 appDiv.classList.add("open-app-button");
                 appDiv.setAttribute("data-app-name", app.name);
                 appDiv.setAttribute("data-app-background-color", app.settings.backgroundColor);
+                appDiv.setAttribute("data-app-file", JSON.stringify(app.app_file));
                 // add dragable = true
                 appDiv.setAttribute("draggable", "true");
                 appDiv.style.backgroundColor = app.settings.backgroundColor;
@@ -141,7 +152,7 @@ const appEngine = new ApplicationEngine();
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("open-app-button")) {
         console.log('test');
-        let myApp = appEngine.createApplication(e.target.getAttribute("data-app-name"), e.target.getAttribute("data-app-background-color"));
+        let myApp = appEngine.createApplication(e.target.getAttribute("data-app-name"), e.target.getAttribute("data-app-background-color"), null, JSON.parse(e.target.getAttribute("data-app-file")));
         appEngine.openApplication(myApp);
     }
 });

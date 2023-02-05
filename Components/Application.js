@@ -50,3 +50,5 @@ export default class ApplicationEngine {
     // reload app method TODO
 }
 // END CLASS APPLICATION ENGINE
+
+// ajotuer un builder d'application , par exemple newCheckbox() qui rajoute un input checkbox ect

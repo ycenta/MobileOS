@@ -1,7 +1,16 @@
 {
     "applications": [
         {
+            "name" : "Settings",
+            "app_file" : "settings",
+            "settings" : {
+                "backgroundColor" : "#d4d4d4",
+                "setting2" : "value2"
+            }
+        },
+        {
             "name" : "app 1",
+            "app_file" : "app1",
             "settings" : {
                 "backgroundColor" : "#d7b1b1",
                 "setting2" : "value2"
@@ -9,6 +18,7 @@
         },
         {
             "name" : "app 2",
+            "app_file" : "app2",
             "settings" : {
                 "backgroundColor" : "#b1bdd7",
                 "setting2" : "value2"
@@ -16,6 +26,7 @@
         },
         {
             "name" : "app 3",
+            "app_file" : "app3",
             "settings" : {
                 "backgroundColor" : "#b1d7b5",
                 "setting2" : "value2"
