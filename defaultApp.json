@@ -9,8 +9,8 @@
             }
         },
         {
-            "name" : "app 1",
-            "app_file" : "app1",
+            "name" : "Calculator",
+            "app_file" : "calculator",
             "settings" : {
                 "backgroundColor" : "#d7b1b1",
                 "setting2" : "value2"

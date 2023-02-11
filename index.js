@@ -60,10 +60,9 @@ class ApplicationEngine {
 
     // reload app method TODO
 }
-// END CLASS APPLICATION ENGINE
 
 
-// JS CODE HOME PAGE
+// INDEX JS CODE
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -88,15 +87,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 gridContainer.appendChild(appDiv);
             });
 
-            // Créer un tableau des applications au lieu de store dans un data attribute?
-
-            // create app
-            // const appEngine = new ApplicationEngine();
-            // const myApp = appEngine.createApplication(data.name, data.backgroundColor, data.methods);
-            // // open app
-            // appEngine.openApplication(myApp);
         }
     );
+
+// Initialisation de la top bar
 
     const time = document.getElementById("time");
     setInterval(() => {
@@ -144,6 +138,8 @@ document.addEventListener("DOMContentLoaded", function() {
             networkLatency.innerHTML = `Network latency: ${latency}ms`;
         });
 
+// FIN INITIALISATION TOP BAR
+
 });
 
 const appEngine = new ApplicationEngine();
@@ -177,8 +173,6 @@ function handleOrientation(event) {
   
     // Do stuff with the new orientation data
 }
-
-
 
 const output = document.querySelector(".output");
 
