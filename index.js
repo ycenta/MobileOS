@@ -137,8 +137,14 @@ function loadTopBar(reload = false) {
     }
 
 //    get localstorage settings
-    const settingsTopBar = JSON.parse(localStorage.getItem("settingsTopBar"));
-    console.log(settingsTopBar);
+
+    // settingsTopBar[0] = JSON.stringify("{name: 'year', enabled: false}");
+    // settingsTopBar[1] = JSON.stringify("{name: 'month', enabled: false}");
+    // settingsTopBar[2] = JSON.stringify("{name: 'day', enabled: false}");
+
+
+    settingsTopBar = JSON.parse(localStorage.getItem("settingsTopBar"));
+    alert(settingsTopBar);
 
     let currentDate =  "";
     let dateFormat = {};
@@ -147,6 +153,7 @@ function loadTopBar(reload = false) {
     isMonth = true;
     isYear = true;
     let objectDateFormat = {};
+    let dateString = "";
     settingsTopBar.forEach(setting => {
 
         // if(setting.name == "time" && setting.enabled == true) {
@@ -191,25 +198,44 @@ function loadTopBar(reload = false) {
         }   
 
         if(setting.name == "month") {
-            if(setting.enabled == true) {
+            if(setting.enabled == false) {
+                alert("month disabled");
                 objectDateFormat.month = "numeric";
+                isMonth = false;
             }
         }
         
 
-        if(setting.name == "day" && setting.enabled == true) {
-            if(setting.enabled == true) {
+        if(setting.name == "day") {
+            if(setting.enabled == false) {
+                alert("day disabled");
                 objectDateFormat.day = "numeric";
+                isDay = false;
             }
         }
 
-        if(setting.name == "year" && setting.enabled == true) {
-            if(setting.enabled == true) {
+        if(setting.name == "year") {
+            if(setting.enabled == false) {
+                alert("year disabled");
                 objectDateFormat.year = "numeric";
+                isYear = false;
             }
         }
     
     });
+
+    let datetwo = new Date();
+    let currentDay = datetwo.getDate();
+    let currentMonth = datetwo.getMonth() + 1;
+    let currentYear = datetwo.getFullYear();
+
+    alert(isDay + " " + isMonth + " " + isYear);
+
+    isDay ? dateString += currentDay + "/" : dateString += "";
+    isMonth ? dateString += currentMonth + "/" : dateString += "";
+    isYear ? dateString += currentYear : dateString += "";
+
+    alert(dateString)
 
 
     console.log(settingsTopBar);
@@ -218,7 +244,8 @@ function loadTopBar(reload = false) {
     if(isDay == false && isMonth == false && isYear == false) {
         currentDate = " ";
     } else {
-    currentDate = new Date().toLocaleDateString("fr-FR",  objectDateFormat);
+        // currentDate = new Date().toLocaleDateString("fr-FR",  objectDateFormat);
+        currentDate = dateString;
     }
     const date = document.getElementById("date");
     date.innerHTML = currentDate;
