@@ -6,7 +6,7 @@ const settings = {
       const htmlParent = document.getElementById("app-overlay-id");
       // let appHtmlContent = document.createElement("div");
 
-      let html = `<div>Hello from Settings<br>
+      let html = `<div >Hello from Settings<br>
       <form action="#" id="settings">
         <input type="checkbox" id="checkboxNetwork" name="checkboxNetwork">
         <label for="checkboxNetwork">Latence du réseau</label>
@@ -54,7 +54,6 @@ const settings = {
       htmlParent.insertAdjacentHTML('beforeend', html);
 
       //CODE DE l'APP
-       alert("get settings");
        const form = document.getElementById("settings");
        form.addEventListener("submit", function(event) {
          event.preventDefault();
@@ -70,39 +69,23 @@ const settings = {
         inputsSettings.forEach(input => {
           input.addEventListener("change", function(event) {
             console.log(event.target.name +" : "+event.target.checked +" "+ event.target.value);
-            // push to the array settingsArray (with index = name), do not create duplicate index
-            settings.settingsArray[event.target.name] = event.target.checked;
 
-            console.log(settings.settingsArray);
-
-
-            //   settings.settingsArray.push({
-          //     name: event.target.name,
-          //     checked: event.target.checked
-          // });
-
-          
+              // if the settings already exist in the array, we update it
+              if (settings.settingsArray.find(setting => setting.name === event.target.name)) {
+                  settings.settingsArray.find(setting => setting.name === event.target.name).enabled = event.target.checked;
+              } else {
+                // if the settings doesn't exist in the array, we add it
+                settings.settingsArray.push({
+                  name: event.target.name,
+                  enabled: event.target.checked
+                });
+          }
+            
+          localStorage.setItem("settingsTopBar", JSON.stringify(settings.settingsArray));
         }
       );
     });
-  },
-    onClose(){
-      // remove the events 
-
-      // const inputsSettings = document.querySelectorAll("#settings input");
-      // inputsSettings.forEach(input => {
-      //   input.removeEventListener("change", function(event) {
-      //     console.log(event.target.name +" : "+event.target.checked +" "+ event.target.value);
-      //     // push to the array
-      //     settings.settingsArray.push({
-      //       name: event.target.name,
-      //       checked: event.target.checked
-      //     });
-      //   });
-      // });
-
-    }
-
+  }   
 
   };
 

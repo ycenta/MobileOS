@@ -2,8 +2,9 @@
 class ApplicationEngine {
     constructor() {
         this.overlay = null;
+        this.currentApp = null;
     }
-
+   
     openApplication(app) {
         if (!this.overlay) {
             this.overlay = document.createElement("div");
@@ -17,6 +18,15 @@ class ApplicationEngine {
     }
 
     closeApplication() {
+
+        if (this.currentApp != null) {
+
+            if(this.currentApp == "settings") {
+                // reload top bar
+                loadTopBar(true);
+            }
+        }
+      
         if (this.overlay) {
             this.overlay.style.display = "none";
         }
@@ -24,6 +34,7 @@ class ApplicationEngine {
 
     createApplication(name, backgroundColor, methods, app_file) {
         console.log(backgroundColor);
+        this.currentApp = app_file;
         return {
             name: name,
             backgroundColor: backgroundColor,
@@ -58,13 +69,14 @@ class ApplicationEngine {
         }
     }
 
-    // reload app method TODO
 }
 
 
 // INDEX JS CODE
 
 document.addEventListener("DOMContentLoaded", function() {
+
+    // set to localstorage the default settings of the top bar
 
     fetch("defaultApp.json")
         .then(response => response.json())
@@ -91,52 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
     );
 
 // Initialisation de la top bar
-
-    const time = document.getElementById("time");
-    setInterval(() => {
-        time.innerHTML = new Date().toLocaleTimeString();
-    }, 1000);
-
-    // current date
-    const date = document.getElementById("date");
-    date.innerHTML = new Date().toLocaleDateString();
-
-    // vibration status
-    const vibrationStatus = document.getElementById("vibration-status");
-    if (navigator.vibrate) {
-        vibrationStatus.innerHTML = "Vibration On";
-    } else {
-        vibrationStatus.innerHTML = "Vibration Off";
-    }
-
-    //Battery %
-    const batteryStatus = document.getElementById("battery-status");
-    navigator.getBattery().then(battery => {
-        // show battery level with thoses characters : ▂▃▅▆█
-        // remplacer ça par un modulo pour éviter les if
-        if(battery.level < 0.2) {
-            batteryStatus.innerHTML = `Batterie: ▂ ${battery.level * 100}%`;
-        } else if(battery.level < 0.4) {
-            batteryStatus.innerHTML = `Batterie: ▃ ${battery.level * 100}%`;
-        } else if(battery.level < 0.6) {
-            batteryStatus.innerHTML = `Batterie: ▅ ${battery.level * 100}%`;
-        } else if(battery.level < 0.8) {
-            batteryStatus.innerHTML = `Batterie: ▆ ${battery.level * 100}%`;
-        } else {
-            batteryStatus.innerHTML = `Batterie: █ ${battery.level * 100}%`;
-        }
-    });
-
-    // réseau
-    const networkLatency = document.getElementById("network-latency");
-    const startTime = performance.now();
-    fetch("https://jsonplaceholder.typicode.com/todos/1")
-        .then(response => response.json())
-        .then(data => {
-            const endTime = performance.now();
-            const latency = endTime - startTime;
-            networkLatency.innerHTML = `Network latency: ${latency}ms`;
-        });
+    loadTopBar();
 
 // FIN INITIALISATION TOP BAR
 
@@ -161,6 +128,125 @@ document.addEventListener("click", (e) => {
         appEngine.closeApplication();
     }
 });
+
+function loadTopBar(reload = false) {
+
+    if(reload) { // refresh all html of the top bar, and stop the interval to recreate it
+        clearInterval(topBarInterval);
+        alert("reload");
+    }
+
+//    get localstorage settings
+    const settingsTopBar = JSON.parse(localStorage.getItem("settingsTopBar"));
+    console.log(settingsTopBar);
+
+    let currentDate =  "";
+    let dateFormat = {};
+
+    isDay = true;
+    isMonth = true;
+    isYear = true;
+    let objectDateFormat = {};
+    settingsTopBar.forEach(setting => {
+
+        // if(setting.name == "time" && setting.enabled == true) {
+        //     const time = document.getElementById("time");
+        //     topBarInterval = setInterval(() => {
+        //         time.innerHTML = new Date().toLocaleTimeString();
+        //     }, 1000);
+        // }
+        
+       if(setting.name == "checkboxNetwork" && setting.enabled == true) {
+               // réseau
+            let networkLatency = document.getElementById("network-latency");
+            let startTime = performance.now();
+            fetch("https://jsonplaceholder.typicode.com/todos/1")
+                .then(response => response.json())
+                .then(data => {
+                    const endTime = performance.now();
+                    const latency = endTime - startTime;
+                    networkLatency.innerHTML = `Network latency: ${latency}ms`;
+                });
+       }
+
+       
+       if(setting.name == "batteryVisibility" && setting.enabled == true) {
+            //Battery %
+            const batteryStatus = document.getElementById("battery-status");
+            navigator.getBattery().then(battery => {
+                // show battery level with thoses characters : ▂▃▅▆█
+                // remplacer ça par un modulo pour éviter les if
+                if(battery.level < 0.2) {
+                    batteryStatus.innerHTML = `Batterie: ▂ ${battery.level * 100}%`;
+                } else if(battery.level < 0.4) {
+                    batteryStatus.innerHTML = `Batterie: ▃ ${battery.level * 100}%`;
+                } else if(battery.level < 0.6) {
+                    batteryStatus.innerHTML = `Batterie: ▅ ${battery.level * 100}%`;
+                } else if(battery.level < 0.8) {
+                    batteryStatus.innerHTML = `Batterie: ▆ ${battery.level * 100}%`;
+                } else {
+                    batteryStatus.innerHTML = `Batterie: █ ${battery.level * 100}%`;
+                }
+            });
+        }   
+
+        if(setting.name == "month") {
+            if(setting.enabled == true) {
+                objectDateFormat.month = "numeric";
+            }
+        }
+        
+
+        if(setting.name == "day" && setting.enabled == true) {
+            if(setting.enabled == true) {
+                objectDateFormat.day = "numeric";
+            }
+        }
+
+        if(setting.name == "year" && setting.enabled == true) {
+            if(setting.enabled == true) {
+                objectDateFormat.year = "numeric";
+            }
+        }
+    
+    });
+
+
+    console.log(settingsTopBar);
+
+    // if isDay == false && isMonth == false && isYear == false, currentDate = " "
+    if(isDay == false && isMonth == false && isYear == false) {
+        currentDate = " ";
+    } else {
+    currentDate = new Date().toLocaleDateString("fr-FR",  objectDateFormat);
+    }
+    const date = document.getElementById("date");
+    date.innerHTML = currentDate;
+    
+    const time = document.getElementById("time");
+    topBarInterval = setInterval(() => {
+        time.innerHTML = new Date().toLocaleTimeString();
+    }, 1000);
+
+    // vibration status
+    const vibrationStatus = document.getElementById("vibration-status");
+    if (navigator.vibrate) {
+        vibrationStatus.innerHTML = "Vibration On";
+    } else {
+        vibrationStatus.innerHTML = "Vibration Off";
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
 
 
 // random BS TBD
@@ -208,4 +294,3 @@ output.textContent += (getComputedStyle(document.documentElement).getPropertyVal
 }
 
 window.addEventListener("deviceorientation", handleOrientation);
-alert("Device Orientation API is supported");
