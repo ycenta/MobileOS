@@ -1,10 +1,9 @@
 const settings = {
     message: "Hello from myModule!",
-    settingsArray: [],
+    settingsArray: JSON.parse(localStorage.getItem("settingsTopBar")),
     loadApp(){
       // alert("load app");
       const htmlParent = document.getElementById("app-overlay-id");
-      // let appHtmlContent = document.createElement("div");
 
       let html = `<div >Hello from Settings<br>
       <form action="#" id="settings">
@@ -67,6 +66,11 @@ const settings = {
       //  Récuperer les changements des inputs pour sauvgarder les settings automatiquement
         const inputsSettings = document.querySelectorAll("#settings input");
         inputsSettings.forEach(input => {
+          // set input to check if the settings already exist in the array (localStorage) and if it's enabled
+          if (settings.settingsArray.find(setting => setting.name === input.name)) {
+            input.checked = settings.settingsArray.find(setting => setting.name === input.name).enabled;
+          }
+
           input.addEventListener("change", function(event) {
             console.log(event.target.name +" : "+event.target.checked +" "+ event.target.value);
 

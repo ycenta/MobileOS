@@ -76,8 +76,27 @@ class ApplicationEngine {
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    // set to localstorage the default settings of the top bar
+    let defaultSettings = [
+        {name: 'checkboxNetwork', enabled: true},
+        {name: 'hours', enabled: true},
+        {name: 'minutes', enabled: true},
+        {name: 'seconds', enabled: true},
+        {name: 'day', enabled: true},
+        {name: 'month', enabled: true},
+        {name: 'year', enabled: true},
+        {name: 'vibration', enabled: true},
+        {name: 'vibrationVisibility', enabled: true},
+        {name: 'battery', enabled: true},
+        {name: 'batteryVisibility', enabled: true},
+        {name: 'network', enabled: false},
+        {name: 'networkDelay', enabled: false}
+    ];
 
+    if(localStorage.getItem("settingsTopBar") == null) {
+        localStorage.setItem("settingsTopBar", JSON.stringify(defaultSettings));
+    }
+
+    // Initialisation de la grille d'applications
     fetch("defaultApp.json")
         .then(response => response.json())
         .then(data => {
@@ -102,16 +121,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     );
 
-// Initialisation de la top bar
+    // Initialisation de la top bar
     loadTopBar();
-
-// FIN INITIALISATION TOP BAR
 
 });
 
 const appEngine = new ApplicationEngine();
 
-// on click on class .open-app-button 
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("open-app-button")) {
         console.log('test');
@@ -119,10 +135,8 @@ document.addEventListener("click", (e) => {
         appEngine.openApplication(myApp);
     }
 });
-// on click on class "open_app_button"
 
-// close button event when class "close-btn" is clicked
-document.addEventListener("click", (e) => {
+document.addEventListener("click", (e) => { //refacto avec l'event du dessus ? TODO
     if (e.target.classList.contains("close-btn")) {
         console.log("close button clicked");
         appEngine.closeApplication();
@@ -136,35 +150,24 @@ function loadTopBar(reload = false) {
         alert("reload");
     }
 
-//    get localstorage settings
-
-    // settingsTopBar[0] = JSON.stringify("{name: 'year', enabled: false}");
-    // settingsTopBar[1] = JSON.stringify("{name: 'month', enabled: false}");
-    // settingsTopBar[2] = JSON.stringify("{name: 'day', enabled: false}");
-
-
     settingsTopBar = JSON.parse(localStorage.getItem("settingsTopBar"));
-    alert(settingsTopBar);
+    console.log(settingsTopBar);
 
     let currentDate =  "";
-    let dateFormat = {};
-
     isDay = true;
     isMonth = true;
     isYear = true;
-    let objectDateFormat = {};
+    hasSeconds = true;
+    hasMinutes = true;
+    hasHours = true;
+    let dateArray = [];
     let dateString = "";
+
     settingsTopBar.forEach(setting => {
 
-        // if(setting.name == "time" && setting.enabled == true) {
-        //     const time = document.getElementById("time");
-        //     topBarInterval = setInterval(() => {
-        //         time.innerHTML = new Date().toLocaleTimeString();
-        //     }, 1000);
-        // }
         
-       if(setting.name == "checkboxNetwork" && setting.enabled == true) {
-               // réseau
+       if(setting.name == "checkboxNetwork" && setting.enabled == true) {   // réseau
+             
             let networkLatency = document.getElementById("network-latency");
             let startTime = performance.now();
             fetch("https://jsonplaceholder.typicode.com/todos/1")
@@ -177,48 +180,75 @@ function loadTopBar(reload = false) {
        }
 
        
-       if(setting.name == "batteryVisibility" && setting.enabled == true) {
-            //Battery %
+       if(setting.name == "batteryVisibility") {  //Battery %
+           
             const batteryStatus = document.getElementById("battery-status");
-            navigator.getBattery().then(battery => {
-                // show battery level with thoses characters : ▂▃▅▆█
-                // remplacer ça par un modulo pour éviter les if
-                if(battery.level < 0.2) {
-                    batteryStatus.innerHTML = `Batterie: ▂ ${battery.level * 100}%`;
-                } else if(battery.level < 0.4) {
-                    batteryStatus.innerHTML = `Batterie: ▃ ${battery.level * 100}%`;
-                } else if(battery.level < 0.6) {
-                    batteryStatus.innerHTML = `Batterie: ▅ ${battery.level * 100}%`;
-                } else if(battery.level < 0.8) {
-                    batteryStatus.innerHTML = `Batterie: ▆ ${battery.level * 100}%`;
-                } else {
-                    batteryStatus.innerHTML = `Batterie: █ ${battery.level * 100}%`;
-                }
-            });
-        }   
+            if(setting.enabled == true) {
+                navigator.getBattery().then(battery => {
+                    // show battery level with thoses characters : ▂▃▅▆█
+                    // remplacer ça par un modulo pour éviter les if
+                    if(battery.level < 0.2) {
+                        batteryStatus.innerHTML = `Batterie: ▂ ${battery.level * 100}%`;
+                    } else if(battery.level < 0.4) {
+                        batteryStatus.innerHTML = `Batterie: ▃ ${battery.level * 100}%`;
+                    } else if(battery.level < 0.6) {
+                        batteryStatus.innerHTML = `Batterie: ▅ ${battery.level * 100}%`;
+                    } else if(battery.level < 0.8) {
+                        batteryStatus.innerHTML = `Batterie: ▆ ${battery.level * 100}%`;
+                    } else {
+                        batteryStatus.innerHTML = `Batterie: █ ${battery.level * 100}%`;
+                    }
+                });
+
+            }else{
+                batteryStatus.innerHTML = "";
+            }
+        }
 
         if(setting.name == "month") {
             if(setting.enabled == false) {
-                alert("month disabled");
-                objectDateFormat.month = "numeric";
+                console.log("month disabled");
                 isMonth = false;
             }
         }
         
-
         if(setting.name == "day") {
             if(setting.enabled == false) {
-                alert("day disabled");
-                objectDateFormat.day = "numeric";
+                console.log("day disabled");
                 isDay = false;
             }
         }
 
         if(setting.name == "year") {
             if(setting.enabled == false) {
-                alert("year disabled");
-                objectDateFormat.year = "numeric";
+                console.log("year disabled");
                 isYear = false;
+            }
+        }
+
+        if(setting.name == "seconds") {
+            hasSeconds = setting.enabled;          
+        }
+
+        if(setting.name == "minutes") {
+            hasMinutes = setting.enabled;
+        }
+
+        if(setting.name == "hours") {
+            hasHours = setting.enabled;
+        }
+
+        if(setting.name == "vibrationVisibility") {             // vibration status
+
+            const vibrationStatus = document.getElementById("vibration-status");
+            if(setting.enabled == true) {
+                if (navigator.vibrate) {
+                    vibrationStatus.innerHTML = "Vibration On";
+                } else {
+                    vibrationStatus.innerHTML = "Vibration Off";
+                }
+            }else{
+                vibrationStatus.innerHTML = "";
             }
         }
     
@@ -229,40 +259,24 @@ function loadTopBar(reload = false) {
     let currentMonth = datetwo.getMonth() + 1;
     let currentYear = datetwo.getFullYear();
 
-    alert(isDay + " " + isMonth + " " + isYear);
+    isDay ? dateArray.push(currentDay) : "";
+    isMonth ? dateArray.push(currentMonth) : "";
+    isYear ? dateArray.push(currentYear) : "";
 
-    isDay ? dateString += currentDay + "/" : dateString += "";
-    isMonth ? dateString += currentMonth + "/" : dateString += "";
-    isYear ? dateString += currentYear : dateString += "";
-
-    alert(dateString)
-
-
-    console.log(settingsTopBar);
-
-    // if isDay == false && isMonth == false && isYear == false, currentDate = " "
     if(isDay == false && isMonth == false && isYear == false) {
         currentDate = " ";
     } else {
-        // currentDate = new Date().toLocaleDateString("fr-FR",  objectDateFormat);
-        currentDate = dateString;
+        currentDate = dateArray.join('/');
     }
+
     const date = document.getElementById("date");
     date.innerHTML = currentDate;
     
     const time = document.getElementById("time");
     topBarInterval = setInterval(() => {
-        time.innerHTML = new Date().toLocaleTimeString();
+        let datetime = new Date();
+        time.innerHTML = (hasHours ? datetime.getHours()+":" : "") + (hasMinutes ? datetime.getMinutes()+":" : "") + (hasSeconds ? datetime.getSeconds() : "");
     }, 1000);
-
-    // vibration status
-    const vibrationStatus = document.getElementById("vibration-status");
-    if (navigator.vibrate) {
-        vibrationStatus.innerHTML = "Vibration On";
-    } else {
-        vibrationStatus.innerHTML = "Vibration Off";
-    }
-
 
 
 }
@@ -276,15 +290,13 @@ function loadTopBar(reload = false) {
 
 
 
-// random BS TBD
+// Truc à virer, c'est le code pour bouger les icones selon l'orientation de du téléphone/PC
 
 function handleOrientation(event) {
     const absolute = event.absolute;
     const alpha = event.alpha;
     const beta = event.beta;
     const gamma = event.gamma;
-  
-    // Do stuff with the new orientation data
 }
 
 const output = document.querySelector(".output");
