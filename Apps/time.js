@@ -3,7 +3,7 @@ const calculator = {
     loadApp(){
       // alert("load app");
       const htmlParent = document.getElementById("app-overlay-id");
-      let html = `<div>TIME<br></div>`;
+      let html = `<div>TIME commit<br></div>`;
       htmlParent.insertAdjacentHTML('beforeend', html);      
     },
 
