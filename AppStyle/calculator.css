@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+#app-container
+{
+    font-size: 0;
+}
+
+#app-overlay-id
+{
+    height: 100%;
+}
+
+#app-title
+{
+    margin: 0;
+    padding: 15px;
+    text-align: center;
+    background-color: rgb(50, 41, 57);
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    height: 3vh;
+}
+
+#result
+{
+    width: 100%;
+    height: 5vh;
+    font-size: 4vh;
+    margin: 0;
+    padding: 0;
+}
+
+.row-calc
+{
+    background-color: lightgray;
+    width: 100%;
+}
+
+.btn-calc
+{
+    height: 18vh;
+    width: 25vw;
+    font-size: 5vh;
+}
+
+#btn-clear
+{
+    height: 18vh;
+    width: 25vw;
+    font-size: 5vh;
+}
+
+#btn-proceed
+{
+    height: 18vh;
+    width: 25vw;
+    font-size: 5vh;
+}
