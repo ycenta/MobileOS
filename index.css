@@ -23,8 +23,8 @@ body{
   
   .grid-item {
     background-color: #f2f2f2; /* Couleur de fond */
-    width: 80px; /* Taille de l'élément (carré) */
-    height: 80px; /* Taille de l'élément (carré) */
+    width: 25vw; /* Taille de l'élément (carré) */
+    height: 25vh; /* Taille de l'élément (carré) */
     display: flex;
     align-items: center;
     justify-content: center;
