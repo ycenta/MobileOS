@@ -89,7 +89,8 @@ document.addEventListener("DOMContentLoaded", function() {
         {name: 'battery', enabled: true},
         {name: 'batteryVisibility', enabled: true},
         {name: 'network', enabled: false},
-        {name: 'networkDelay', enabled: false}
+        {name: 'networkDelay', enabled: false},
+        {name: 'darkmode', enabled: false}
     ];
 
     if(localStorage.getItem("settingsTopBar") == null) {
@@ -117,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 // appDiv.style.backgroundColor = app.settings.backgroundColor;
                 gridContainer.appendChild(appDiv);
             });
-
         }
     );
 
@@ -194,6 +194,7 @@ function loadTopBar(reload = false) {
     hasSeconds = true;
     hasMinutes = true;
     hasHours = true;
+    darkmode = false;
     let dateArray = [];
     let dateString = "";
 
@@ -278,6 +279,10 @@ function loadTopBar(reload = false) {
         }
     
 
+        if ( setting.name == "darkmode" ) {
+            darkmode = setting.enabled;
+        }
+
         if(setting.name == "vibrationVisibility") {             // vibration status
 
             console.log("vibration status : "+setting.enabled);
@@ -320,6 +325,15 @@ function loadTopBar(reload = false) {
         time.innerHTML = (hasHours ? datetime.getHours()+":" : "") + (hasMinutes ? datetime.getMinutes()+":" : "") + (hasSeconds ? datetime.getSeconds() : "");
     }, 1000);
 
+    console.log(darkmode);
+
+    if (darkmode && !document.body.classList.contains('darkmode')) {
+        console.log(darkmode);
+        document.body.classList.add('darkmode');
+    } else if ( !darkmode &&  document.body.classList.contains('darkmode') ) {
+        document.body.classList.remove('darkmode');
+    }
+
 
 }
 
@@ -343,14 +357,14 @@ document.addEventListener('click', () => {
 
 // Truc à virer, c'est le code pour bouger les icones selon l'orientation de du téléphone/PC
 
-function handleOrientation(event) {
-    const absolute = event.absolute;
-    const alpha = event.alpha;
-    const beta = event.beta;
-    const gamma = event.gamma;
-}
+// function handleOrientation(event) {
+//     const absolute = event.absolute;
+//     const alpha = event.alpha;
+//     const beta = event.beta;
+//     const gamma = event.gamma;
+// }
 
-const output = document.querySelector(".output");
+// const output = document.querySelector(".output");
 
 function handleOrientation(event) {
   let x = event.beta; 

@@ -53,6 +53,8 @@ const settings = {
               }
               
               localStorage.setItem("settingsTopBar", JSON.stringify(settings.settingsArray));
+
+              console.log(localStorage);
             });
           });
 

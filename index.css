@@ -2,6 +2,11 @@
   --main-color: #2c2c2c;
 }
 
+body{
+  margin:0;
+  background-color: var(--main-color);
+}
+
 
 
 body{
@@ -108,6 +113,12 @@ body{
     font-size: 24px; /* Taille de police */
     color: #fff; /* Couleur de police */
     cursor: pointer; /* Cursor pour indiquer qu'il s'agit d'un lien */
+}
+
+h1
+{
+  margin: 0;
+  padding: 15px;
 }
 
 
