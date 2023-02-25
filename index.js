@@ -33,7 +33,6 @@ class ApplicationEngine {
     }
 
     createApplication(name, backgroundColor, methods, app_file) {
-        console.log(backgroundColor);
         this.currentApp = app_file;
         return {
             name: name,
@@ -42,7 +41,7 @@ class ApplicationEngine {
                 const app = document.createElement("div");
 
                 // Style de l'application (titre & bg)
-                app.innerHTML = this.name;
+                app.innerHTML = "<h1 id='app-title'>"+this.name.toUpperCase()+"</h1>";
                 app.style.backgroundColor = this.backgroundColor;
                 app.classList.add("app-overlay");
                 // add id = "app-overlay-id"
@@ -130,7 +129,6 @@ const appEngine = new ApplicationEngine();
 
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("open-app-button")) {
-        console.log('test');
         let myApp = appEngine.createApplication(e.target.getAttribute("data-app-name"), e.target.getAttribute("data-app-background-color"), null, JSON.parse(e.target.getAttribute("data-app-file")));
         appEngine.openApplication(myApp);
     }
@@ -138,7 +136,6 @@ document.addEventListener("click", (e) => {
 
 document.addEventListener("click", (e) => { //refacto avec l'event du dessus ? TODO
     if (e.target.classList.contains("close-btn")) {
-        console.log("close button clicked");
         appEngine.closeApplication();
     }
 });
@@ -151,7 +148,6 @@ function loadTopBar(reload = false) {
     }
 
     settingsTopBar = JSON.parse(localStorage.getItem("settingsTopBar"));
-    console.log(settingsTopBar);
 
     let currentDate =  "";
     isDay = true;
@@ -207,21 +203,18 @@ function loadTopBar(reload = false) {
 
         if(setting.name == "month") {
             if(setting.enabled == false) {
-                console.log("month disabled");
                 isMonth = false;
             }
         }
         
         if(setting.name == "day") {
             if(setting.enabled == false) {
-                console.log("day disabled");
                 isDay = false;
             }
         }
 
         if(setting.name == "year") {
             if(setting.enabled == false) {
-                console.log("year disabled");
                 isYear = false;
             }
         }
