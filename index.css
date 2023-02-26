@@ -41,7 +41,6 @@ body{
     font-size: 18px; /* Taille de police */
     color: #333; /* Couleur de police */
     border-radius: 8px; /* Coins arrondis */
-    padding: 20px; /* Espacement intérieur */
 
     transform: rotateY(var(--r-x));
 
@@ -51,6 +50,14 @@ body{
     
   }
   
+  /* if on mobile, set grid item height to 11vh; */
+  @media only screen and (max-width: 600px) {
+    .grid-item {
+      height: 11vh;
+    }
+  }
+
+
   .grid-item:active {
     /* Style pour l'état actif (appuyé) */
     background-color: #ccc;

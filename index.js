@@ -230,6 +230,16 @@ function loadTopBar(reload = false) {
         if(setting.name == "hours") {
             hasHours = setting.enabled;
         }
+        
+        //if setting = vibration, ask for permission
+        if(setting.name == "vibration") {
+            if(setting.enabled == true) {
+                if (navigator.vibrate) {
+                    navigator.vibrate(1000);
+                }
+            }
+        }
+    
 
         if(setting.name == "vibrationVisibility") {             // vibration status
 
@@ -298,9 +308,9 @@ function handleOrientation(event) {
   let x = event.beta; 
   let y = event.gamma; 
 
-  output.textContent = `beta : ${x}\n`;
-  output.textContent += `gamma: ${y}\n`;
-  output.textContent += `Current deg: ${(y/2)}\n`;
+//   output.textContent = `beta : ${x}\n`;
+//   output.textContent += `gamma: ${y}\n`;
+//   output.textContent += `Current deg: ${(y/2)}\n`;
 
  
   if (x > 90) {
@@ -317,7 +327,7 @@ function handleOrientation(event) {
   
   document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
 //   print current --r-x value
-output.textContent += (getComputedStyle(document.documentElement).getPropertyValue("--r-x"));
+// output.textContent += (getComputedStyle(document.documentElement).getPropertyValue("--r-x"));
 }
 
 window.addEventListener("deviceorientation", handleOrientation);
