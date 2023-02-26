@@ -85,7 +85,11 @@ const chrono = {
             function startStop() {
 
               //vibrate 
-              navigator.vibrate(1000);
+              //if the localStorage says that the user wants to vibrate, then vibrate, else don't vibrate
+              if(localStorage.getItem("vibrationPermission") === "true"){
+                navigator.vibrate(1000);
+                console.log("vibrate");
+              }
 
               if (status === "stopped") {
                 interval = window.setInterval(startTimer, 10);
@@ -115,7 +119,10 @@ const chrono = {
 
             function addLap() {
               //vibrate 10ms
-              navigator.vibrate(10);
+              if(localStorage.getItem("vibrationPermission") === "true"){
+                navigator.vibrate(10);
+                console.log("vibrate");
+              }
               let lap = document.getElementById("timer").textContent;
               let lapList = document.getElementById("lapList");
               let li = document.createElement("li");
@@ -159,7 +166,10 @@ const chrono = {
                   if (--timer < 0 ) {
                     clearInterval(intervalMinuterie);
                     //vibrate 4 times
-                    navigator.vibrate([1000, 1000, 1000, 1000]);
+                    if(localStorage.getItem("vibrationPermission") === "true"){
+                      navigator.vibrate([1000, 1000, 1000, 1000]);
+                      console.log("vibrate");
+                    }
                     alert("DRRING DRRIING");
                   }
                 }, 1000);

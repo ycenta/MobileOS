@@ -237,6 +237,10 @@ function loadTopBar(reload = false) {
                 if (navigator.vibrate) {
                     navigator.vibrate(1000);
                 }
+                //store in local storage the permission
+                localStorage.setItem("vibrationPermission", true);
+            }else{
+                localStorage.setItem("vibrationPermission", false);
             }
         }
     
