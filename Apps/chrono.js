@@ -87,7 +87,7 @@ const chrono = {
               //vibrate 
               //if the localStorage says that the user wants to vibrate, then vibrate, else don't vibrate
               if(localStorage.getItem("vibrationPermission") === "true"){
-                navigator.vibrate(1000);
+                navigator.vibrate(100);
                 console.log("vibrate");
               }
 
@@ -167,8 +167,7 @@ const chrono = {
                     clearInterval(intervalMinuterie);
                     //vibrate 4 times
                     if(localStorage.getItem("vibrationPermission") === "true"){
-                      navigator.vibrate([1000, 1000, 1000, 1000]);
-                      console.log("vibrate");
+                      navigator.vibrate([500, 500, 500]);
                     }
                     alert("DRRING DRRIING");
                   }

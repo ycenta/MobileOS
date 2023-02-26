@@ -19,6 +19,7 @@ body{
   background-color: grey;
   padding: 10px;
   background: rgba(217, 217, 217, 19%);
+  flex-wrap: wrap;
 }
 
 #grid-container {
@@ -118,8 +119,8 @@ body{
 }
 
 #circle{
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: #38A556;
   position: fixed;

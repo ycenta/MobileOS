@@ -12,10 +12,26 @@ const settings = {
 
           const form = document.getElementById("settings");
           form.addEventListener("submit", function(event) {
+            console.log("submit");
             event.preventDefault();
-            const formData = new FormData(form);
-            const entries = formData.entries();
+            let network = document.getElementById("network").value;
+            let networkDelay = document.getElementById("networkDelay").value;
+
+            localStorage.setItem("network", network);
+            localStorage.setItem("networkDelay", networkDelay);
+            setTimeout(function(){}, 100);
+            // click on close-btn
+            document.getElementById("close-btn").click();
           });
+
+
+          // if networkd and networkDelay already exist in the localStorage, we set the value of the inputs
+          if (localStorage.getItem("network")) {
+            document.getElementById("network").value = localStorage.getItem("network");
+          }
+          if (localStorage.getItem("networkDelay")) {
+            document.getElementById("networkDelay").value = localStorage.getItem("networkDelay");
+          }
 
           const inputsSettings = document.querySelectorAll("#settings input");
           inputsSettings.forEach(input => {

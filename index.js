@@ -51,6 +51,7 @@ class ApplicationEngine {
                 const closeBtn = document.createElement("div");
                 closeBtn.innerHTML = "&times;";
                 closeBtn.classList.add("close-btn");
+                closeBtn.setAttribute("id", "close-btn");
                 for (let method in methods) {
                     app[method] = methods[method];
                 }
@@ -143,9 +144,34 @@ document.addEventListener("click", (e) => { //refacto avec l'event du dessus ? T
 function loadTopBar(reload = false) {
 
     if(reload) { // refresh all html of the top bar, and stop the interval to recreate it
-        clearInterval(topBarInterval);
-        alert("reload");
+        clearInterval(topBarInterval);  
+        clearInterval(networkInterval);
     }
+
+
+    if(localStorage.getItem("network") != null) {
+        network = "https://"+localStorage.getItem("network");
+    }else{
+        let network = "https://ycenta.me";
+    }
+    let networkLatency = document.getElementById("network-latency");
+    networkInterval = setInterval(() => {
+        let startTime = performance.now();
+        console.log('pinging : '+network);
+        fetch(network)
+            .then(data => {
+                let endTime = performance.now();
+                let latency = endTime - startTime;
+                latency = Math.round(latency * 100) / 100;
+                networkLatency.innerHTML = `Ping : ${latency}ms`;
+            })
+            .catch(error => {
+                networkLatency.innerHTML = `Ping : Error`;
+            });
+
+    }
+    ,  8000);
+
 
     settingsTopBar = JSON.parse(localStorage.getItem("settingsTopBar"));
 
@@ -162,17 +188,12 @@ function loadTopBar(reload = false) {
     settingsTopBar.forEach(setting => {
 
         
-       if(setting.name == "checkboxNetwork" && setting.enabled == true) {   // réseau
-             
-            let networkLatency = document.getElementById("network-latency");
-            let startTime = performance.now();
-            fetch("https://jsonplaceholder.typicode.com/todos/1")
-                .then(response => response.json())
-                .then(data => {
-                    const endTime = performance.now();
-                    const latency = endTime - startTime;
-                    networkLatency.innerHTML = `Network latency: ${latency}ms`;
-                });
+       if(setting.name == "checkboxNetwork" ) {   // réseau
+            if(setting.enabled == true){
+
+            }else{
+                clearInterval(networkInterval);
+            }
        }
 
        
@@ -184,15 +205,15 @@ function loadTopBar(reload = false) {
                     // show battery level with thoses characters : ▂▃▅▆█
                     // remplacer ça par un modulo pour éviter les if
                     if(battery.level < 0.2) {
-                        batteryStatus.innerHTML = `Batterie: ▂ ${battery.level * 100}%`;
+                        batteryStatus.innerHTML = `▂ ${battery.level * 100}%`;
                     } else if(battery.level < 0.4) {
-                        batteryStatus.innerHTML = `Batterie: ▃ ${battery.level * 100}%`;
+                        batteryStatus.innerHTML = `▃ ${battery.level * 100}%`;
                     } else if(battery.level < 0.6) {
-                        batteryStatus.innerHTML = `Batterie: ▅ ${battery.level * 100}%`;
+                        batteryStatus.innerHTML = `▅ ${battery.level * 100}%`;
                     } else if(battery.level < 0.8) {
-                        batteryStatus.innerHTML = `Batterie: ▆ ${battery.level * 100}%`;
+                        batteryStatus.innerHTML = `▆ ${battery.level * 100}%`;
                     } else {
-                        batteryStatus.innerHTML = `Batterie: █ ${battery.level * 100}%`;
+                        batteryStatus.innerHTML = `█ ${battery.level * 100}%`;
                     }
                 });
 
@@ -235,7 +256,7 @@ function loadTopBar(reload = false) {
         if(setting.name == "vibration") {
             if(setting.enabled == true) {
                 if (navigator.vibrate) {
-                    navigator.vibrate(1000);
+                    //navigator.vibrate(100);
                 }
                 //store in local storage the permission
                 localStorage.setItem("vibrationPermission", true);
@@ -250,7 +271,7 @@ function loadTopBar(reload = false) {
             const vibrationStatus = document.getElementById("vibration-status");
             if(setting.enabled == true) {
                 if (navigator.vibrate) {
-                    vibrationStatus.innerHTML = "Vibration On";
+                    vibrationStatus.innerHTML = "Vibration On📳";
                 } else {
                     vibrationStatus.innerHTML = "Vibration Off";
                 }
