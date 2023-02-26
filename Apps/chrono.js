@@ -83,6 +83,10 @@ const chrono = {
               
               
             function startStop() {
+
+              //vibrate 
+              navigator.vibrate(1000);
+
               if (status === "stopped") {
                 interval = window.setInterval(startTimer, 10);
                 document.getElementById("start").textContent = "Pause";
@@ -110,6 +114,8 @@ const chrono = {
             }
 
             function addLap() {
+              //vibrate 10ms
+              navigator.vibrate(10);
               let lap = document.getElementById("timer").textContent;
               let lapList = document.getElementById("lapList");
               let li = document.createElement("li");
@@ -152,6 +158,8 @@ const chrono = {
               
                   if (--timer < 0 ) {
                     clearInterval(intervalMinuterie);
+                    //vibrate 4 times
+                    navigator.vibrate([1000, 1000, 1000, 1000]);
                     alert("DRRING DRRIING");
                   }
                 }, 1000);
