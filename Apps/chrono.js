@@ -22,6 +22,18 @@ const chrono = {
             let status = "stopped";
             let countdownMode = false;
             
+            function startClock(){
+                let date = new Date();
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                let seconds = date.getSeconds();
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                seconds = seconds < 10 ? '0'+seconds : seconds;
+                let strTime = hours + ':' + minutes + ':' + seconds ;
+                document.getElementById("clock").textContent = strTime;
+            }
+
+            setInterval(startClock, 1000);
             
             function startTimer(duration = 0) {
                 milliseconds += 10;
@@ -77,7 +89,7 @@ const chrono = {
                 status = "started";
               } else {
                 window.clearInterval(interval);
-                window.clearInterval(intervalMinuterie);
+                countdownMode = false;
                 document.getElementById("start").textContent = "Start";
                 status = "stopped";
               }
@@ -85,6 +97,7 @@ const chrono = {
       
             function reset() {
               window.clearInterval(interval);
+              countdownMode = false;
               milliseconds = 0;
               seconds = 0;
               minutes = 0;
@@ -92,10 +105,20 @@ const chrono = {
               document.getElementById("timer").textContent = "00:00:00:000";
               document.getElementById("start").textContent = "Start";
               status = "stopped";
-              countdownMode = false;
+              let lapList = document.getElementById("lapList");
+              lapList.innerHTML = "";
+            }
+
+            function addLap() {
+              let lap = document.getElementById("timer").textContent;
+              let lapList = document.getElementById("lapList");
+              let li = document.createElement("li");
+              li.textContent = lap;
+              lapList.appendChild(li);
             }
 
             function initTimerDuration(){
+              countdownMode = true;
                 startTimerDuration( document.getElementById("countdown").value);
             }
 
@@ -104,6 +127,10 @@ const chrono = {
                 let hours, minutes, seconds;
               
                 let intervalMinuterie = setInterval(function() {
+                  if(countdownMode === false){
+                    clearInterval(intervalMinuterie);
+                    return;
+                  }
                   hours = Math.floor(timer / 3600);
                   minutes = Math.floor((timer % 3600) / 60);
                   seconds = timer % 60;
@@ -114,7 +141,7 @@ const chrono = {
               
                   document.getElementById("timer").textContent = hours + ":" + minutes + ":" + seconds;
               
-                  if (--timer < 0) {
+                  if (--timer < 0 ) {
                     clearInterval(intervalMinuterie);
                     alert("DRRING DRRIING");
                   }
@@ -124,6 +151,7 @@ const chrono = {
                 document.getElementById("start").addEventListener("click", startStop);
                 document.getElementById("reset").addEventListener("click", reset);
                 document.getElementById("startCountdown").addEventListener("click", initTimerDuration);
+                document.getElementById("addLap").addEventListener("click", addLap);
             
 
         });

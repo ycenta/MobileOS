@@ -295,15 +295,14 @@ function handleOrientation(event) {
 const output = document.querySelector(".output");
 
 function handleOrientation(event) {
-  let x = event.beta; // In degree in the range [-180,180)
-  let y = event.gamma; // In degree in the range [-90,90)
+  let x = event.beta; 
+  let y = event.gamma; 
 
   output.textContent = `beta : ${x}\n`;
   output.textContent += `gamma: ${y}\n`;
   output.textContent += `Current deg: ${(y/2)}\n`;
 
-  // Because we don't want to have the device upside down
-  // We constrain the x value to the range [-90,90]
+ 
   if (x > 90) {
     x = 90;
   }
@@ -311,15 +310,11 @@ function handleOrientation(event) {
     x = -90;
   }
 
-  // To make computation easier we shift the range of
-  // x and y to [0,180]
+
   x += 90;
   y += 90;
 
-  // 10 is half the size of the ball
-  // It center the positioning point to the center of the ball
   
-
   document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
 //   print current --r-x value
 output.textContent += (getComputedStyle(document.documentElement).getPropertyValue("--r-x"));
