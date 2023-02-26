@@ -31,6 +31,14 @@
                 "backgroundColor" : "#b1d7b5",
                 "setting2" : "value2"
             }
+        },
+        {
+            "name" : "Chrono",
+            "app_file" : "chrono",
+            "settings" : {
+                "backgroundColor" : "#09d6ff",
+                "setting2" : "value2"
+            }
         }
     ]
 }
