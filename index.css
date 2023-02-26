@@ -1,7 +1,16 @@
-body{
-  margin:0;
+.darkmode{
+  --main-color: #2c2c2c;
 }
 
+
+
+body{
+  --main-color: #031A28;
+  /* background-color: var(); */
+  margin:0;
+  background: linear-gradient(180deg, rgba(65, 251, 117, 0) 42.71%, rgba(65, 251, 117, 0.08) 100%), linear-gradient(180deg, #031A28 12.14%, var(--main-color ) 184.42%), linear-gradient(180deg, #031A28 0%, #084C70 215.6%);
+  height: 100vh;
+}
 #navbar{
   color:white;
   display: flex;
@@ -9,6 +18,7 @@ body{
   justify-content: space-around;
   background-color: grey;
   padding: 10px;
+  background: rgba(217, 217, 217, 19%);
 }
 
 #grid-container {
@@ -34,12 +44,25 @@ body{
     padding: 20px; /* Espacement intérieur */
 
     transform: rotateY(var(--r-x));
+
+    background: linear-gradient(180deg, #D9D9D9 0%, rgba(217, 217, 217, 0.1) 100%);
+    border-radius: 16px;
+    opacity: 0.5;
     
   }
   
   .grid-item:active {
     /* Style pour l'état actif (appuyé) */
     background-color: #ccc;
+
+  }
+
+  .grid-item:hover {
+    /* Style pour l'état actif (appuyé) */
+    background-color: #ccc;
+    transition: 0.5s;
+    opacity: 1;
+
   }
 
 .overlay{
@@ -85,4 +108,17 @@ body{
   height: 20px;
   background: green;
   border-radius: 100%;
+}
+
+#circle{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #38A556;
+  position: fixed;
+    bottom: 5%;
+}
+
+#app-title{
+ margin: 0;
 }

@@ -118,11 +118,20 @@ const chrono = {
             }
 
             function initTimerDuration(){
-              countdownMode = true;
+              if(countdownMode === false){
+
+                if(status === "started"){
+                  startStop();
+                  reset();
+                }
+
+                countdownMode = true;
                 startTimerDuration( document.getElementById("countdown").value);
+              }
             }
 
             function startTimerDuration(duration) {
+
                 let timer = duration;
                 let hours, minutes, seconds;
               
