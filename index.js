@@ -154,6 +154,15 @@ function loadTopBar(reload = false) {
     }else{
         let network = "https://ycenta.me";
     }
+
+    if(localStorage.getItem("networkDelay") != null) {
+        networkDelay = localStorage.getItem("networkDelay");
+        networkDelay = parseInt(networkDelay)* 1000;
+    }else{
+        networkDelay = 8000;
+    }
+        
+
     let networkLatency = document.getElementById("network-latency");
     networkInterval = setInterval(() => {
         let startTime = performance.now();
@@ -166,11 +175,14 @@ function loadTopBar(reload = false) {
                 networkLatency.innerHTML = `Ping : ${latency}ms`;
             })
             .catch(error => {
-                networkLatency.innerHTML = `Ping : Error`;
+                let endTime = performance.now();
+                let latency = endTime - startTime;
+                latency = Math.round(latency * 100) / 100;
+                networkLatency.innerHTML = `Ping : ${latency}ms`;
             });
 
     }
-    ,  8000);
+    ,  networkDelay);
 
 
     settingsTopBar = JSON.parse(localStorage.getItem("settingsTopBar"));
@@ -268,9 +280,11 @@ function loadTopBar(reload = false) {
 
         if(setting.name == "vibrationVisibility") {             // vibration status
 
+            console.log("vibration status : "+setting.enabled);
             const vibrationStatus = document.getElementById("vibration-status");
             if(setting.enabled == true) {
-                if (navigator.vibrate) {
+                // if vibrationPermission is true in localStorage, print it
+                if(localStorage.getItem("vibrationPermission") == "true") {
                     vibrationStatus.innerHTML = "Vibration On📳";
                 } else {
                     vibrationStatus.innerHTML = "Vibration Off";
@@ -333,11 +347,6 @@ function handleOrientation(event) {
   let x = event.beta; 
   let y = event.gamma; 
 
-//   output.textContent = `beta : ${x}\n`;
-//   output.textContent += `gamma: ${y}\n`;
-//   output.textContent += `Current deg: ${(y/2)}\n`;
-
- 
   if (x > 90) {
     x = 90;
   }
@@ -345,14 +354,10 @@ function handleOrientation(event) {
     x = -90;
   }
 
-
   x += 90;
   y += 90;
 
-  
   document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
-//   print current --r-x value
-// output.textContent += (getComputedStyle(document.documentElement).getPropertyValue("--r-x"));
 }
 
 window.addEventListener("deviceorientation", handleOrientation);

@@ -17,8 +17,8 @@
             }
         },
         {
-            "name" : "app 2",
-            "app_file" : "app2",
+            "name" : "TicTacToe",
+            "app_file" : "tictactoe",
             "settings" : {
                 "backgroundColor" : "#b1bdd7",
                 "setting2" : "value2"
