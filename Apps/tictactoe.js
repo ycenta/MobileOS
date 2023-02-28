@@ -15,6 +15,7 @@ const settings = {
             let resetBoard = document.getElementById('resetBoard');
             let seeScore = document.getElementById('scores_display');
             let customAlert = document.getElementById('alert-tictactoe');
+            let resetScore = document.getElementById('resetScore');
 
             const renderBoard = function()
             {
@@ -157,6 +158,14 @@ const settings = {
                 } else {
                     document.getElementById('scores').style.display = 'none';
                 }
+            });
+
+            resetScore.addEventListener('click', function(){
+                document.getElementById('scoreX').value = 0;
+                document.getElementById("scoreO").value = 0;
+
+                document.getElementById("dscoreO").innerHTML = 0;
+                document.getElementById("dscoreX").innerHTML = 0;
             });
 
             let score = JSON.parse(localStorage.scoreTicTacToe);
