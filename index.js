@@ -383,7 +383,7 @@ function handleOrientation(event) {
 }
 
 //Pour le lock screen
-document.getElementById('circle').addEventListener('click', lockScreen);
+document.getElementById('unlocked-logo').addEventListener('click', lockScreen);
 
 function lockScreen()
 {

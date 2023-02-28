@@ -187,6 +187,21 @@ h1
   opacity: 0.5;
 }
 
+#unlocked-logo
+{
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 10vh;
+  overflow: hidden;
+}
+
+#unlocked-logo:hover
+{
+  opacity: 0.5;
+}
+
 #locked-time
 {
   position: fixed;
