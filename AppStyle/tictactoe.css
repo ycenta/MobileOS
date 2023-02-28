@@ -20,7 +20,8 @@ body
 
 .board 
 {
-  width: 50%;
+  width: 70vh;
+  height: 70vh;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -29,6 +30,13 @@ body
   aspect-ratio: 1/1;
   margin-left: 50%;
   transform: translateX(-50%);
+}
+
+@media screen and (max-width: 600px) {
+  .board {
+    width: auto;
+    height: auto;
+  }
 }
 
 .cell 
