@@ -144,6 +144,16 @@ const chrono = {
 
             function startTimerDuration(duration) {
 
+             if (Notification.permission === 'granted') {
+                console.log('Notification permission already granted.');
+              }else{
+                Notification.requestPermission().then((permission) => {
+                  if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                  }
+                });
+              }
+
                 let timer = duration;
                 let hours, minutes, seconds;
               
