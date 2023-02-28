@@ -118,73 +118,73 @@ const settings = {
 
             console.log('prout');
 
-            customAlert.addEventListener("click", showAlert);
+            // customAlert.addEventListener("click", showAlert);
 
-            saveScores.addEventListener("click", function(){
+            // saveScores.addEventListener("click", function(){
 
-                let scoreX = document.getElementById('scoreX').value;
-                let scoreO = document.getElementById('scoreO').value;
+            //     let scoreX = document.getElementById('scoreX').value;
+            //     let scoreO = document.getElementById('scoreO').value;
 
-                let json_score = {'X': scoreX, 'O': scoreO};
+            //     let json_score = {'X': scoreX, 'O': scoreO};
 
-                localStorage.setItem("scoreTicTacToe", JSON.stringify(json_score));
+            //     localStorage.setItem("scoreTicTacToe", JSON.stringify(json_score));
 
-                if(localStorage.getItem("vibrationPermission") === "true"){
-                    navigator.vibrate(100);
-                    console.log("vibrate");
-                }
+            //     if(localStorage.getItem("vibrationPermission") === "true"){
+            //         navigator.vibrate(100);
+            //         console.log("vibrate");
+            //     }
 
-                console.log(localStorage);
-            });
+            //     console.log(localStorage);
+            // });
 
-            resetBoard.addEventListener("click", function(){
+            // resetBoard.addEventListener("click", function(){
 
-                if(localStorage.getItem("vibrationPermission") === "true"){
-                    navigator.vibrate(100);
-                    console.log("vibrate");
-                }
+            //     if(localStorage.getItem("vibrationPermission") === "true"){
+            //         navigator.vibrate(100);
+            //         console.log("vibrate");
+            //     }
 
-                gameStatus = "Game On";
-                board = Array(9).fill("");
-                renderBoard();
-            });
+            //     gameStatus = "Game On";
+            //     board = Array(9).fill("");
+            //     renderBoard();
+            // });
 
-            seeScore.addEventListener("change", function(){
+            // seeScore.addEventListener("change", function(){
 
-                if(localStorage.getItem("vibrationPermission") === "true"){
-                    navigator.vibrate(100);
-                    console.log("vibrate");
-                }
+            //     if(localStorage.getItem("vibrationPermission") === "true"){
+            //         navigator.vibrate(100);
+            //         console.log("vibrate");
+            //     }
 
-                if(this.checked){
-                    document.getElementById('scores').style.display = 'block';
-                } else {
-                    document.getElementById('scores').style.display = 'none';
-                }
-            });
+            //     if(this.checked){
+            //         document.getElementById('scores').style.display = 'block';
+            //     } else {
+            //         document.getElementById('scores').style.display = 'none';
+            //     }
+            // });
 
-            resetScore.addEventListener('click', function(){
-                document.getElementById('scoreX').value = 0;
-                document.getElementById("scoreO").value = 0;
+            // resetScore.addEventListener('click', function(){
+            //     document.getElementById('scoreX').value = 0;
+            //     document.getElementById("scoreO").value = 0;
 
-                document.getElementById("dscoreO").innerHTML = 0;
-                document.getElementById("dscoreX").innerHTML = 0;
-            });
+            //     document.getElementById("dscoreO").innerHTML = 0;
+            //     document.getElementById("dscoreX").innerHTML = 0;
+            // });
 
-            let score = JSON.parse(localStorage.scoreTicTacToe);
+            // let score = JSON.parse(localStorage.scoreTicTacToe);
 
-            if (score['X'] !== undefined) {
-                document.getElementById('scoreX').value = score['X'];
-                document.getElementById('dscoreX').innerHTML = score['X'];
-            }
+            // if (score['X'] !== undefined) {
+            //     document.getElementById('scoreX').value = score['X'];
+            //     document.getElementById('dscoreX').innerHTML = score['X'];
+            // }
 
-            if (score['O'] !== undefined) {
-                document.getElementById('scoreO').value = score['O'];
-                document.getElementById('dscoreO').innerHTML = score['O'];
-            }
+            // if (score['O'] !== undefined) {
+            //     document.getElementById('scoreO').value = score['O'];
+            //     document.getElementById('dscoreO').innerHTML = score['O'];
+            // }
 
-            board = Array(9).fill("");
-            renderBoard();
+            // board = Array(9).fill("");
+            // renderBoard();
         })
         .catch(error => alert("Erreur dans le chargement de l'application."));
     },
