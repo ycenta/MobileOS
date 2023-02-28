@@ -97,6 +97,12 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("settingsTopBar", JSON.stringify(defaultSettings));
     }
 
+    if (localStorage.getItem("scoreTicTacToe") == null) {
+        let tmp_json = {'X': scoreX, 'O': scoreO};
+        tmp_json = JSON.parse(tmp_json);
+        localStorage.setItem("scoreTicTacToe", tmp_json);
+    }
+
     // Initialisation de la grille d'applications
     fetch("defaultApp.json")
         .then(response => response.json())
