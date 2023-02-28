@@ -1,0 +1,17 @@
+.darkmode
+{
+    --app-bg: rgb(26, 26, 26);
+    --app-font-color: white;
+}
+
+body
+{
+    --app-bg: #d4d4d4;
+    --app-font-color: black;
+}
+
+.app-overlay
+{
+    background-color: var(--app-bg)!important;
+    color: var(--app-font-color);
+}

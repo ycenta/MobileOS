@@ -1,0 +1,24 @@
+<link href="/AppStyle/tictactoe.css" rel="stylesheet">
+<div id="container-tictactoe">
+    <div class="board">
+    </div>
+
+    <div id="alert-tictactoe" class="hidden"></div>
+    <div class="tic-button-area">
+        <span class="score-area">
+            <input type="checkbox" name="scores_display" id="scores_display" checked>
+            <label for="scores_display">Voir les scores : </label>
+        </span>
+        <div id="scores">
+            <span id="displayed-score">
+                PLAYER X : <span id="dscoreX">0</span>&nbsp;&nbsp;-&nbsp;&nbsp;<span id="dscoreO">0</span> : PLAYER O
+            </span>
+            <input type="int" readonly="readonly" id="scoreX" name="scoreX" value="0" class="hidden">
+            <input type="int" readonly="readonly" id="scoreO" name="scoreO" value="0" class="hidden">
+        </div>
+        <br>
+        <button id="resetScore">RESET SCORE</button>
+        <button id="resetBoard">RESET BOARD</button>
+        <button id="saveScores">SAVE</button>
+    </div>
+</div>

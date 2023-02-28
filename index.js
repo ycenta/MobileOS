@@ -89,7 +89,8 @@ document.addEventListener("DOMContentLoaded", function() {
         {name: 'battery', enabled: true},
         {name: 'batteryVisibility', enabled: true},
         {name: 'network', enabled: false},
-        {name: 'networkDelay', enabled: false}
+        {name: 'networkDelay', enabled: false},
+        {name: 'darkmode', enabled: false}
     ];
 
     if(localStorage.getItem("settingsTopBar") == null) {
@@ -117,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 // appDiv.style.backgroundColor = app.settings.backgroundColor;
                 gridContainer.appendChild(appDiv);
             });
-
         }
     );
 
@@ -166,7 +166,6 @@ function loadTopBar(reload = false) {
     let networkLatency = document.getElementById("network-latency");
     networkInterval = setInterval(() => {
         let startTime = performance.now();
-        console.log('pinging : '+network);
         fetch(network)
             .then(data => {
                 let endTime = performance.now();
@@ -194,6 +193,7 @@ function loadTopBar(reload = false) {
     hasSeconds = true;
     hasMinutes = true;
     hasHours = true;
+    darkmode = false;
     let dateArray = [];
     let dateString = "";
 
@@ -278,9 +278,12 @@ function loadTopBar(reload = false) {
         }
     
 
+        if ( setting.name == "darkmode" ) {
+            darkmode = setting.enabled;
+        }
+
         if(setting.name == "vibrationVisibility") {             // vibration status
 
-            console.log("vibration status : "+setting.enabled);
             const vibrationStatus = document.getElementById("vibration-status");
             if(setting.enabled == true) {
                 // if vibrationPermission is true in localStorage, print it
@@ -315,10 +318,20 @@ function loadTopBar(reload = false) {
     date.innerHTML = currentDate;
     
     const time = document.getElementById("time");
+    const lockedtime = document.getElementById("locked-time");
     topBarInterval = setInterval(() => {
         let datetime = new Date();
-        time.innerHTML = (hasHours ? datetime.getHours()+":" : "") + (hasMinutes ? datetime.getMinutes()+":" : "") + (hasSeconds ? datetime.getSeconds() : "");
+        let tmp_hr = ((hasHours ? datetime.getHours()+":" : "") + (hasMinutes ? datetime.getMinutes()+":" : "") + (hasSeconds ? datetime.getSeconds() : "").trim()).replace(/^:+|:+$/g, '');
+        time.innerHTML = (tmp_hr);
+        lockedtime.innerHTML = (tmp_hr);
     }, 1000);
+
+
+    if (darkmode && !document.body.classList.contains('darkmode')) {
+        document.body.classList.add('darkmode');
+    } else if ( !darkmode &&  document.body.classList.contains('darkmode') ) {
+        document.body.classList.remove('darkmode');
+    }
 
 
 }
@@ -343,14 +356,14 @@ document.addEventListener('click', () => {
 
 // Truc à virer, c'est le code pour bouger les icones selon l'orientation de du téléphone/PC
 
-function handleOrientation(event) {
-    const absolute = event.absolute;
-    const alpha = event.alpha;
-    const beta = event.beta;
-    const gamma = event.gamma;
-}
+// function handleOrientation(event) {
+//     const absolute = event.absolute;
+//     const alpha = event.alpha;
+//     const beta = event.beta;
+//     const gamma = event.gamma;
+// }
 
-const output = document.querySelector(".output");
+// const output = document.querySelector(".output");
 
 function handleOrientation(event) {
   let x = event.beta; 
@@ -367,6 +380,32 @@ function handleOrientation(event) {
   y += 90;
 
   document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
+}
+
+//Pour le lock screen
+document.getElementById('unlocked-logo').addEventListener('click', lockScreen);
+
+function lockScreen()
+{
+    let lockdiv = document.getElementById('screenLock');
+
+    if ( lockdiv.classList.contains('hidden') ) {
+        lockdiv.classList.remove('hidden');
+    }
+
+    localStorage.setItem('locked', true);
+}
+
+document.getElementById('locked-logo').addEventListener("click",  unlockScreen);
+
+function unlockScreen()
+{
+
+    let lockdiv = document.getElementById('screenLock');
+
+    if ( !lockdiv.classList.contains('hidden') ) {
+        lockdiv.classList.add('hidden');
+    }
 }
 
 // window.addEventListener("deviceorientation", handleOrientation);

@@ -1,14 +1,21 @@
 .darkmode{
   --main-color: #2c2c2c;
+  --background-home: rgb(32, 32, 32);
+  --back-topbar: black;
 }
 
-
+body{
+  margin:0;
+  --back-topbar: rgba(217, 217, 217, 19%);
+  --background-home: linear-gradient(180deg, rgba(65, 251, 117, 0) 42.71%, rgba(65, 251, 117, 0.08) 100%), linear-gradient(180deg, #031A28 12.14%, var(--main-color ) 184.42%), linear-gradient(180deg, #031A28 0%, #084C70 215.6%);
+  background-color: var(--main-color);
+}
 
 body{
   --main-color: #031A28;
   /* background-color: var(); */
   margin:0;
-  background: linear-gradient(180deg, rgba(65, 251, 117, 0) 42.71%, rgba(65, 251, 117, 0.08) 100%), linear-gradient(180deg, #031A28 12.14%, var(--main-color ) 184.42%), linear-gradient(180deg, #031A28 0%, #084C70 215.6%);
+  background: var(--background-home);
   height: 100vh;
 }
 #navbar{
@@ -18,7 +25,7 @@ body{
   justify-content: space-around;
   background-color: grey;
   padding: 10px;
-  background: rgba(217, 217, 217, 19%);
+  background: var(--back-topbar);
   flex-wrap: wrap;
 }
 
@@ -110,6 +117,12 @@ body{
     cursor: pointer; /* Cursor pour indiquer qu'il s'agit d'un lien */
 }
 
+h1
+{
+  margin: 0;
+  padding: 15px;
+}
+
 
 /* TBD */
 
@@ -142,4 +155,60 @@ body{
 
 #app-title{
  margin: 0;
+}
+
+#screenLock{
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7063200280112045) 41%, rgba(0,0,0,1) 100%);
+  z-index: 999;
+}
+
+.hidden{
+  display: none;
+}
+
+#locked-logo
+{
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 10vh;
+  overflow: hidden;
+}
+
+#locked-logo:hover
+{
+  opacity: 0.5;
+}
+
+#unlocked-logo
+{
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 10vh;
+  overflow: hidden;
+}
+
+#unlocked-logo:hover
+{
+  opacity: 0.5;
+}
+
+#locked-time
+{
+  position: fixed;
+  top: 30vh;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 10vh;
+
 }
