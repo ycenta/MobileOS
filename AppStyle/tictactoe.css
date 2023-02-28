@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+
+.app-overlay
+{
+  background: rgb(43,193,126);
+  background: linear-gradient(0deg, rgba(43,193,126,0.8631827731092436) 0%, rgba(20,101,86,0.9192051820728291) 27%, rgba(37,123,162,1) 100%);
+}
+
 .board 
 {
   width: 50%;
@@ -14,10 +22,16 @@
 .cell 
 {
   box-sizing: border-box;
-  border: 1px solid black;
+  border: 2px solid rgb(30, 117, 95);
   cursor: pointer;
   background-color: rgb(240, 240, 240);
   background-position: center;
+  background-size: 80% 80%;
+  background-repeat: no-repeat;
+}
+
+.cell:hover{
+  opacity: 0.7;
 }
 
 #alert-tictactoe
@@ -40,4 +54,24 @@
 .hidden
 {
   display: none;
+}
+
+#displayed-score
+{
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3vh;
+}
+
+.tic-button-area
+{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+#app-title
+{
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
 }

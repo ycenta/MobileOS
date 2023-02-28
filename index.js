@@ -320,9 +320,12 @@ function loadTopBar(reload = false) {
     date.innerHTML = currentDate;
     
     const time = document.getElementById("time");
+    const lockedtime = document.getElementById("locked-time");
     topBarInterval = setInterval(() => {
         let datetime = new Date();
-        time.innerHTML = (hasHours ? datetime.getHours()+":" : "") + (hasMinutes ? datetime.getMinutes()+":" : "") + (hasSeconds ? datetime.getSeconds() : "");
+        let tmp_hr = ((hasHours ? datetime.getHours()+":" : "") + (hasMinutes ? datetime.getMinutes()+":" : "") + (hasSeconds ? datetime.getSeconds() : "").trim()).replace(/^:+|:+$/g, '');
+        time.innerHTML = (tmp_hr);
+        lockedtime.innerHTML = (tmp_hr);
     }, 1000);
 
     console.log(darkmode);
@@ -381,6 +384,32 @@ function handleOrientation(event) {
   y += 90;
 
   document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
+}
+
+//Pour le lock screen
+document.getElementById('circle').addEventListener('click', lockScreen);
+
+function lockScreen()
+{
+    let lockdiv = document.getElementById('screenLock');
+
+    if ( lockdiv.classList.contains('hidden') ) {
+        lockdiv.classList.remove('hidden');
+    }
+
+    localStorage.setItem('locked', true);
+    console.log(localStorage);
+}
+
+document.getElementById('locked-logo').addEventListener("click",  unlockScreen);
+
+function unlockScreen()
+{
+    let lockdiv = document.getElementById('screenLock');
+
+    if ( !lockdiv.classList.contains('hidden') ) {
+        lockdiv.classList.add('hidden');
+    }
 }
 
 // window.addEventListener("deviceorientation", handleOrientation);

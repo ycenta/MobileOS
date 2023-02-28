@@ -154,3 +154,44 @@ h1
 #app-title{
  margin: 0;
 }
+
+#screenLock{
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7063200280112045) 41%, rgba(0,0,0,1) 100%);
+  z-index: 999;
+}
+
+.hidden{
+  display: none;
+}
+
+#locked-logo
+{
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 10vh;
+  overflow: hidden;
+}
+
+#locked-logo:hover
+{
+  opacity: 0.5;
+}
+
+#locked-time
+{
+  position: fixed;
+  top: 30vh;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 10vh;
+
+}

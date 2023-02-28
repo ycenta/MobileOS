@@ -28,6 +28,7 @@ const settings = {
                     if ( board[i] == "X" ) {
                         cell.style.backgroundImage = "url('/Assets/TicTacToe/cross.png')";
                     } else if ( board[i] == "O" ) {
+                        console.log('ooooh');
                         cell.style.backgroundImage = "url('/Assets/TicTacToe/circle.png')";
                     } else {
                         cell.style.backgroundImage = "";
@@ -87,6 +88,7 @@ const settings = {
                     let tmp = parseInt(document.getElementById('score'+currentPlayer).value);
 
                     document.getElementById('score'+currentPlayer).value = tmp+1;
+                    document.getElementById('dscore'+currentPlayer).innerHTML = document.getElementById('score'+currentPlayer).value;
 
                     return currentPlayer;
                   }
@@ -161,10 +163,12 @@ const settings = {
 
             if (score['X'] !== undefined) {
                 document.getElementById('scoreX').value = score['X'];
+                document.getElementById('dscoreX').innerHTML = score['X'];
             }
 
             if (score['O'] !== undefined) {
                 document.getElementById('scoreO').value = score['O'];
+                document.getElementById('dscoreO').innerHTML = score['O'];
             }
 
             board = Array(9).fill("");

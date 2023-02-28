@@ -1,19 +1,23 @@
 <link href="/AppStyle/tictactoe.css" rel="stylesheet">
-<div>
+<div id="container-tictactoe">
     <div class="board">
     </div>
 
     <div id="alert-tictactoe" class="hidden"></div>
-
-    <label for="scores_display">Voir les scores : </label>
-    <input type="checkbox" name="scores_display" id="scores_display" checked>
-    <div id="scores">
-        <label for="scoreX">Joueur X : </label>
-        <input type="int" readonly="readonly" id="scoreX" name="scoreX" value="0"><br>
-        <label for="scoreX">Joueur O : </label>
-        <input type="int" readonly="readonly" id="scoreO" name="scoreO" value="0">
+    <div class="tic-button-area">
+        <span class="score-area">
+            <input type="checkbox" name="scores_display" id="scores_display" checked>
+            <label for="scores_display">Voir les scores : </label>
+        </span>
+        <div id="scores">
+            <span id="displayed-score">
+                JOUEUR X : <span id="dscoreX">0</span>&nbsp;&nbsp;-&nbsp;&nbsp;<span id="dscoreO">0</span> : JOUEUR O
+            </span>
+            <input type="int" readonly="readonly" id="scoreX" name="scoreX" value="0" class="hidden">
+            <input type="int" readonly="readonly" id="scoreO" name="scoreO" value="0" class="hidden">
+        </div>
+        <br>
+        <button id="resetBoard">RESET</button>
+        <button id="saveScores">SAVE</button>
     </div>
-    <br>
-    <button id="resetBoard">RESET</button>
-    <button id="saveScores">SAVE</button>
 </div>
