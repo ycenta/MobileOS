@@ -1,15 +1,43 @@
-.board {
-    display: flex;
-    flex-wrap: wrap;
-    width: 300px;
-  }
-  .cell {
-    box-sizing: border-box;
-    width: 100px;
-    height: 100px;
-    border: 1px solid black;
-    font-size: 3em;
-    text-align: center;
-    line-height: 100px;
-    cursor: pointer;
-  }
+.board 
+{
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  aspect-ratio: 1/1;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.cell 
+{
+  box-sizing: border-box;
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: rgb(240, 240, 240);
+  background-position: center;
+}
+
+#alert-tictactoe
+{
+  cursor: pointer;
+  position: absolute;
+  z-index: 999;
+  background-color: white;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 20vw;
+  height: 5vh;
+  text-align: center;
+  border-radius: 15px;
+  top: 30%;
+  -webkit-box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0); 
+  box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.hidden
+{
+  display: none;
+}

@@ -14,6 +14,7 @@ const settings = {
             let saveScores = document.getElementById('saveScores');
             let resetBoard = document.getElementById('resetBoard');
             let seeScore = document.getElementById('scores_display');
+            let customAlert = document.getElementById('alert-tictactoe');
 
             const renderBoard = function()
             {
@@ -23,7 +24,16 @@ const settings = {
                 for (let i = 0; i < board.length; i++) {
                     let cell = document.createElement("div");
                     cell.classList.add("cell");
-                    cell.innerHTML = board[i] || "&nbsp;";
+
+                    if ( board[i] == "X" ) {
+                        cell.style.backgroundImage = "url('/Assets/TicTacToe/cross.png')";
+                    } else if ( board[i] == "O" ) {
+                        cell.style.backgroundImage = "url('/Assets/TicTacToe/circle.png')";
+                    } else {
+                        cell.style.backgroundImage = "";
+                    }
+
+                    // cell.innerHTML = board[i] || "&nbsp;";
                     cell.addEventListener("click", () => handleCellClick(i));
                     boardElement.appendChild(cell);
                 }
@@ -44,7 +54,14 @@ const settings = {
 
                 board[index] = currentPlayer;
                 renderBoard();
-                checkGameStatus();
+                
+                let tmp_check = checkGameStatus();
+
+                if ( tmp_check == "X" || tmp_check == "O" ) {
+                    showAlert("Le joueur "+tmp_check+" a gagné");
+                } else if ( tmp_check == "Tie" ) {
+                    showAlert("Tie");
+                }
 
                 currentPlayer = currentPlayer === "X" ? "O" : "X";
             }
@@ -65,20 +82,37 @@ const settings = {
                   if (board[a] && board[a] === board[b] && board[a] === board[c]) {
                     gameStatus = `${currentPlayer} wins!`;
 
-                    alert("Joueur "+currentPlayer+" a gagné");
+                    // alert("Joueur "+currentPlayer+" a gagné");
 
                     let tmp = parseInt(document.getElementById('score'+currentPlayer).value);
 
                     document.getElementById('score'+currentPlayer).value = tmp+1;
 
-                    return;
+                    return currentPlayer;
                   }
                 }
                 if (!board.includes("")) {
                   gameStatus = "Tie!";
-                  alert("Egalité !");
+                  return "Tie";
+                }
+                return 0;
+            }
+
+            const showAlert = function(content="") {
+                let alertCust = document.getElementById('alert-tictactoe');
+
+                if (alertCust.classList.contains('hidden')) {
+                    alertCust.innerHTML = content;
+                    alertCust.classList.remove('hidden');
+                } else {
+                    alertCust.classList.add('hidden');
+                    gameStatus = "Game On";
+                    board = Array(9).fill("");
+                    renderBoard();
                 }
             }
+
+            customAlert.addEventListener("click", showAlert);
 
             saveScores.addEventListener("click", function(){
 
