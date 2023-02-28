@@ -15,9 +15,13 @@ const beer = {
 
                 let x = event.beta; 
                 let y = event.gamma; 
+                
 
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 
+                    x += 90;
+                    y += 90;
+                    
                     if (y > 100) {
                         currentLower += 10;
                         rotateCompensation+= 0.5;

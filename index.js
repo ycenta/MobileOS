@@ -220,8 +220,6 @@ function loadTopBar(reload = false) {
             const batteryStatus = document.getElementById("battery-status");
             if(setting.enabled == true) {
                 navigator.getBattery().then(battery => {
-                    // show battery level with thoses characters : ▂▃▅▆█
-                    // remplacer ça par un modulo pour éviter les if
                     if(battery.level < 0.2) {
                         batteryStatus.innerHTML = `▂ ${battery.level * 100}%`;
                     } else if(battery.level < 0.4) {
@@ -327,7 +325,7 @@ function loadTopBar(reload = false) {
     const lockedtime = document.getElementById("locked-time");
     topBarInterval = setInterval(() => {
         let datetime = new Date();
-        let tmp_hr = ((hasHours ? datetime.getHours()+":" : "") + (hasMinutes ? datetime.getMinutes()+":" : "") + (hasSeconds ? datetime.getSeconds() : "").trim()).replace(/^:+|:+$/g, '');
+        let tmp_hr = ((hasHours ? datetime.getHours() : "") + (hasMinutes ? ":"+datetime.getMinutes(): "") + (hasSeconds ? ":"+datetime.getSeconds() : ""));
         time.innerHTML = (tmp_hr);
         lockedtime.innerHTML = (tmp_hr);
     }, 1000);
