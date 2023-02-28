@@ -30,13 +30,11 @@ const settings = {
                     if ( board[i] == "X" ) {
                         cell.style.backgroundImage = "url('/Assets/TicTacToe/cross.png')";
                     } else if ( board[i] == "O" ) {
-                        console.log('ooooh');
                         cell.style.backgroundImage = "url('/Assets/TicTacToe/circle.png')";
                     } else {
                         cell.style.backgroundImage = "";
                     }
 
-                    // cell.innerHTML = board[i] || "&nbsp;";
                     cell.addEventListener("click", () => handleCellClick(i));
                     boardElement.appendChild(cell);
                 }
@@ -184,7 +182,7 @@ const settings = {
             board = Array(9).fill("");
             renderBoard();
         })
-        .catch(error => alert("Erreur dans le chargement de l'application."));
+        .catch(error => console.log(error));
     },
 };
 
