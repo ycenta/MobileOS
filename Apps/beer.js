@@ -9,42 +9,29 @@ const beer = {
             const rectangle = document.getElementById("rectangle");
 
             let currentLower = 0;
+            let rotateCompensation = 0;
 
             function beer(event) {
                 let x = event.beta; 
                 let y = event.gamma; 
-        
-                // if (x > 90) {
-                //     x = 90;
-                // }
-                // if (x < -90) {
-                //     x = -90;
-                // }
         
                 x += 90;
                 y += 90;
         
                 if (y > 100) {
                     currentLower += 10;
+                    rotateCompensation+= 0.5;
                 }
 
-                rectangle.style.transform = "rotateZ("+((y/2) -45)+"deg) "+"translateY(" + currentLower + "px)";
-
-
-                //if (y > 100) , lower the 
-                // set rotation of rectangle to x and y
-                // print the angle value in the div angle
-                document.getElementById("angle").innerHTML = "x : " + x + "<br>y : " + y;
+                rectangle.style.transform = "rotateZ("+(((y+rotateCompensation)/2) -45)+"deg) "+"translateY(" + currentLower + "px)";
+                // document.getElementById("angle").innerHTML = "x : " + x + "<br>y : " + y;
                 
-        
                 }
         
         
                 window.addEventListener("deviceorientation", beer);
 
         });
-
-//get element by id rectangle
 
        
     },    
