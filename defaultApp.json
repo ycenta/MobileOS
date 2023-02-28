@@ -28,7 +28,7 @@
             "name" : "Beer",
             "app_file" : "beer",
             "settings" : {
-                "backgroundColor" : "#b1d7b5",
+                "backgroundColor" : "#rgba(0,0,0,0);",
                 "setting2" : "value2"
             }
         },
