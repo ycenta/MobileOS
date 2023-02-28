@@ -158,7 +158,7 @@ function loadTopBar(reload = false) {
     if(localStorage.getItem("network") != null) {
         network = "https://"+localStorage.getItem("network");
     }else{
-        let network = "https://ycenta.me";
+        network = "https://ycenta.me";
     }
 
     if(localStorage.getItem("networkDelay") != null) {
