@@ -24,7 +24,7 @@ const beer = {
                 }
 
                 rectangle.style.transform = "rotateZ("+(((y+rotateCompensation)/2) -45)+"deg) "+"translateY(" + currentLower + "px)";
-                // document.getElementById("angle").innerHTML = "x : " + x + "<br>y : " + y;
+                document.getElementById("angle").innerHTML = "x : " + x + "<br>y : " + y;
                 
                 }
         

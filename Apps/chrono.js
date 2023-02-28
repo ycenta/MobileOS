@@ -2,7 +2,6 @@ const chrono = {
     message: "Hello from myModule!",
     loadApp()
     {
-      // const htmlParent = document.getElementById("app-overlay-id");
 
       fetch('../HtmlTemplates/chrono.html')
         .then(response => response.text())
@@ -171,7 +170,7 @@ const chrono = {
                     }
 
                     if (!('Notification' in window)) {
-                      alert('Ce navigateur ne prend pas en charge la notification de bureau')
+                      alert('Minuterie terminée !')
                     }
                     else if (Notification.permission === 'granted') {
                       const notification = new Notification('Minuterie terminée !')
@@ -183,6 +182,10 @@ const chrono = {
                         }
                       });
                     }
+
+                    //reset the timer
+                    reset();
+
                   }
                 }, 1000);
               }
