@@ -326,6 +326,10 @@ function loadTopBar(reload = false) {
     topBarInterval = setInterval(() => {
         let datetime = new Date();
         let tmp_hr = ((hasHours ? datetime.getHours() : "") + (hasMinutes ? ":"+datetime.getMinutes(): "") + (hasSeconds ? ":"+datetime.getSeconds() : ""));
+        // if starts with : remove it
+        if(tmp_hr.startsWith(":")) {
+            tmp_hr = tmp_hr.substring(1);
+        }
         time.innerHTML = (tmp_hr);
         lockedtime.innerHTML = (tmp_hr);
     }, 1000);
@@ -412,4 +416,4 @@ function unlockScreen()
     }
 }
 
-// window.addEventListener("deviceorientation", handleOrientation);
+window.addEventListener("deviceorientation", handleOrientation);
