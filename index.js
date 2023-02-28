@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 appDiv.setAttribute("data-app-file", JSON.stringify(app.app_file));
                 // add dragable = true
                 appDiv.setAttribute("draggable", "true");
-                appDiv.style.backgroundColor = app.settings.backgroundColor;
+                // appDiv.style.backgroundColor = app.settings.backgroundColor;
                 gridContainer.appendChild(appDiv);
             });
 
@@ -369,4 +369,4 @@ function handleOrientation(event) {
   document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
 }
 
-window.addEventListener("deviceorientation", handleOrientation);
+// window.addEventListener("deviceorientation", handleOrientation);
