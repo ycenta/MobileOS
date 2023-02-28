@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (localStorage.getItem("scoreTicTacToe") == null) {
         let tmp_json = {'X': 0, 'O': 0};
-        tmp_json = JSON.parse(tmp_json);
+        tmp_json = JSON.stringify(tmp_json);
         localStorage.setItem("scoreTicTacToe", tmp_json);
     }
 
