@@ -5,7 +5,7 @@ const settings = {
         fetch('../HtmlTemplates/tictactoe.html')
         .then(response => alert(response.text()))
         .then(html => {
-            
+
             const htmlParent = document.getElementById("app-overlay-id");
             htmlParent.insertAdjacentHTML('beforeend', html);
 
@@ -115,6 +115,8 @@ const settings = {
                     renderBoard();
                 }
             }
+
+            console.log('prout');
 
             customAlert.addEventListener("click", showAlert);
 
