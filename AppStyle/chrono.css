@@ -1,3 +1,26 @@
+.darkmode
+{
+  --app-bg: rgb(35, 35, 35);
+  --app-font-color: white;
+}
+
+body
+{
+  --app-bg: linear-gradient(0deg, rgba(43,193,126,0.8631827731092436) 0%, rgba(20,101,86,0.9192051820728291) 27%, rgba(37,123,162,1) 100%);
+  --app-font-color: black;
+}
+
+.app-overlay
+{
+  background: var(--app-bg)!important;
+  color: var(--app-font-color);
+}
+
+#app-title
+{
+  text-align: center;
+}
+
 #chrono-container {
     display: flex;
     flex-direction: column;
@@ -52,4 +75,10 @@
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
+  }
+
+  .btn-timer
+  {
+    display: flex;
+    flex-direction: row;
   }

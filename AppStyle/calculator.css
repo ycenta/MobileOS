@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+body.darkmode
+{
+    --button-bg: rgb(35, 35, 35);
+    --button-font-color: rgb(210, 148, 13);
+}
+
 #app-container
 {
     font-size: 0;
@@ -62,4 +68,10 @@
     height: 18vh;
     width: 25vw;
     font-size: 5vh;
+}
+
+.row-calc>button
+{
+  background-color: var(--button-bg);
+  color: var(--button-font-color);
 }

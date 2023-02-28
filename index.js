@@ -166,7 +166,6 @@ function loadTopBar(reload = false) {
     let networkLatency = document.getElementById("network-latency");
     networkInterval = setInterval(() => {
         let startTime = performance.now();
-        console.log('pinging : '+network);
         fetch(network)
             .then(data => {
                 let endTime = performance.now();
@@ -285,7 +284,6 @@ function loadTopBar(reload = false) {
 
         if(setting.name == "vibrationVisibility") {             // vibration status
 
-            console.log("vibration status : "+setting.enabled);
             const vibrationStatus = document.getElementById("vibration-status");
             if(setting.enabled == true) {
                 // if vibrationPermission is true in localStorage, print it
@@ -328,10 +326,8 @@ function loadTopBar(reload = false) {
         lockedtime.innerHTML = (tmp_hr);
     }, 1000);
 
-    console.log(darkmode);
 
     if (darkmode && !document.body.classList.contains('darkmode')) {
-        console.log(darkmode);
         document.body.classList.add('darkmode');
     } else if ( !darkmode &&  document.body.classList.contains('darkmode') ) {
         document.body.classList.remove('darkmode');
@@ -398,13 +394,13 @@ function lockScreen()
     }
 
     localStorage.setItem('locked', true);
-    console.log(localStorage);
 }
 
 document.getElementById('locked-logo').addEventListener("click",  unlockScreen);
 
 function unlockScreen()
 {
+
     let lockdiv = document.getElementById('screenLock');
 
     if ( !lockdiv.classList.contains('hidden') ) {

@@ -1,19 +1,21 @@
 .darkmode{
   --main-color: #2c2c2c;
+  --background-home: rgb(32, 32, 32);
+  --back-topbar: black;
 }
 
 body{
   margin:0;
+  --back-topbar: rgba(217, 217, 217, 19%);
+  --background-home: linear-gradient(180deg, rgba(65, 251, 117, 0) 42.71%, rgba(65, 251, 117, 0.08) 100%), linear-gradient(180deg, #031A28 12.14%, var(--main-color ) 184.42%), linear-gradient(180deg, #031A28 0%, #084C70 215.6%);
   background-color: var(--main-color);
 }
-
-
 
 body{
   --main-color: #031A28;
   /* background-color: var(); */
   margin:0;
-  background: linear-gradient(180deg, rgba(65, 251, 117, 0) 42.71%, rgba(65, 251, 117, 0.08) 100%), linear-gradient(180deg, #031A28 12.14%, var(--main-color ) 184.42%), linear-gradient(180deg, #031A28 0%, #084C70 215.6%);
+  background: var(--background-home);
   height: 100vh;
 }
 #navbar{
@@ -23,7 +25,7 @@ body{
   justify-content: space-around;
   background-color: grey;
   padding: 10px;
-  background: rgba(217, 217, 217, 19%);
+  background: var(--back-topbar);
   flex-wrap: wrap;
 }
 
