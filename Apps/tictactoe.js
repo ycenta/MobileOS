@@ -3,7 +3,7 @@ const settings = {
     settingsArray: JSON.parse(localStorage.getItem("settingsTopBar")),
     loadApp(){
         fetch('../HtmlTemplates/tictactoe.html')
-        .then(response => alert(response.text()))
+        .then(response => response.text())
         .then(html => {
 
             const htmlParent = document.getElementById("app-overlay-id");
