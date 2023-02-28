@@ -169,7 +169,20 @@ const chrono = {
                     if(localStorage.getItem("vibrationPermission") === "true"){
                       navigator.vibrate([500, 500, 500]);
                     }
-                    alert("DRRING DRRIING");
+
+                    if (!('Notification' in window)) {
+                      alert('Ce navigateur ne prend pas en charge la notification de bureau')
+                    }
+                    else if (Notification.permission === 'granted') {
+                      const notification = new Notification('Minuterie terminée !')
+                    }
+                    else if (Notification.permission !== 'denied') {
+                      Notification.requestPermission().then((permission) => {
+                        if (permission === 'granted') {
+                          const notification = new Notification('Minuterie terminée !')
+                        }
+                      });
+                    }
                   }
                 }, 1000);
               }

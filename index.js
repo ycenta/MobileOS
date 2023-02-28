@@ -324,6 +324,15 @@ function loadTopBar(reload = false) {
 }
 
 
+document.addEventListener('click', () => {
+    Notification.requestPermission().then(function (status) {
+        if (status === 'denied') {
+            //
+        } else if (status === 'granted') {
+            //
+        }
+    });
+})
 
 
 
