@@ -19,15 +19,14 @@ const beer = {
 
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 
-                    if (x > 90) {
-                        x = 90;
+                    if (y > 90) {
+                        y = 90;
                       }
-                      if (x < -90) {
-                        x = -90;
+                      if (y < -90) {
+                        y = -90;
                       }
 
 
-                    x += 90;
                     y += 90;
                     
                     if (y > 100) {
@@ -39,7 +38,6 @@ const beer = {
                 
                   } else {
 
-                    x += 90;
                     y += 90;
             
                     if (y > 100) {
