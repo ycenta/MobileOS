@@ -41,6 +41,25 @@
         <!-- div pour le screen lock -->
         <div id="screenLock" class="hidden">
             <span id="locked-time"></span>
+            <div id="password-locked">
+                <span id="input-password">
+                    <input type="password" name="password-lock" id="password-lock" disabled>
+                </span>
+                <div class="grid-key-password">
+                    <button class="btn-password" onclick="appendPassword('1')">1</button>
+                    <button class="btn-password" onclick="appendPassword('2')">2</button>
+                    <button class="btn-password" onclick="appendPassword('3')">3</button>
+                    <button class="btn-password" onclick="appendPassword('4')">4</button>
+                    <button class="btn-password" onclick="appendPassword('5')">5</button>
+                    <button class="btn-password" onclick="appendPassword('6')">6</button>
+                    <button class="btn-password" onclick="appendPassword('7')">7</button>
+                    <button class="btn-password" onclick="appendPassword('8')">8</button>
+                    <button class="btn-password" onclick="appendPassword('9')">9</button>
+                    <button class="btn-password" onclick="delPassword()">DEL</button>
+                    <button class="btn-password" onclick="appendPassword('0')">0</button>
+                    <button class="btn-password" onclick="checkPassword()">ENTER</button>
+                </div>
+            </div>
             <img id="locked-logo" src="/Assets/LockScreen/lock.png" />
         </div>
     </body>

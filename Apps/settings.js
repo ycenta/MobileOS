@@ -58,6 +58,71 @@ const settings = {
             });
           });
 
+          document.getElementById('savePwd').addEventListener('click', function(e)
+          {
+
+            e.preventDefault();
+
+            let pwd = document.getElementById('password');
+            let pwdConf = document.getElementById('confPassword');
+
+            if (pwd.value == pwdConf.value) {
+              if ( !isNaN(pwd.value) ) {
+                localStorage.setItem('password', pwd.value);
+
+                alert("Mot de passe sauvegardé avec succès.");
+
+                pwd.value="";
+                pwdConf.value = "";
+              } else {
+                  alert('Le mot de passe ne peut contenir que des chiffres');
+              }
+            } else {
+              alert('Le mot de passe et sa confirmation ne correspondent pas.');
+            }
+          });
+
+          document.getElementById('exportSettings').addEventListener('click', function(e){
+            e.preventDefault();
+            const blob = new Blob([JSON.stringify(localStorage)], {type: "application/json"});
+
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "data.json";
+            link.click();
+
+            URL.revokeObjectURL(url);
+          });
+
+          document.getElementById('importSettings').addEventListener('click',  function(e){
+            e.preventDefault();
+
+            let fileInput = document.getElementById('settingsUpload');
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener('load', (event) => {
+              let tmpSettings = JSON.parse(event.target.result);
+
+              localStorage.setItem('locked', tmpSettings.locked);
+              localStorage.setItem('network', tmpSettings.network);
+              localStorage.setItem('networkDelay', tmpSettings.networkDelay);
+              localStorage.setItem('password', tmpSettings.password);
+              localStorage.setItem('scoreTicTacToe', tmpSettings.scoreTicTacToe);
+              localStorage.setItem('settingsTopBar', tmpSettings.settingsTopBar);
+              localStorage.setItem('vibrationPermission', tmpSettings.vibrationPermission);
+
+              alert("Settings importés avec succès");
+
+              location.reload();
+            });
+          
+            reader.readAsText(file);
+          });
+
         })
         .catch(error => alert("Erreur dans le chargement de l'application."));
   }   

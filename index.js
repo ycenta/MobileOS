@@ -86,7 +86,8 @@ document.addEventListener("DOMContentLoaded", function() {
         {name: 'batteryVisibility', enabled: true},
         {name: 'network', enabled: false},
         {name: 'networkDelay', enabled: false},
-        {name: 'darkmode', enabled: false}
+        {name: 'darkmode', enabled: false},
+        {name: 'password', value:""}
     ];
 
     if(localStorage.getItem("settingsTopBar") == null) {
@@ -97,6 +98,20 @@ document.addEventListener("DOMContentLoaded", function() {
         let tmp_json = {'X': 0, 'O': 0};
         tmp_json = JSON.stringify(tmp_json);
         localStorage.setItem("scoreTicTacToe", tmp_json);
+    }
+
+    if ( localStorage.getItem("locked") == null ) {
+        localStorage.setItem('locked', false);
+    } else {
+        if (localStorage.getItem('locked') && localStorage.getItem('locked')!="false") {
+
+            console.log(localStorage.getItem('locked'));
+            lockScreen();
+        }
+    }
+
+    if ( localStorage.getItem('locked').enabled ) {
+        lockScreen();
     }
 
     // Initialisation de la grille d'applications
@@ -384,12 +399,33 @@ function lockScreen()
 
     if ( lockdiv.classList.contains('hidden') ) {
         lockdiv.classList.remove('hidden');
+
+        let pwdArea = document.getElementById('password-locked');
+        let lockArea = document.getElementById('locked-logo');
+
+        if ( localStorage.getItem('password') == "" || localStorage.getItem('password') === null ) {
+            if ( !pwdArea.classList.contains('hidden') ) {
+                pwdArea.classList.add('hidden');
+            }
+
+            if ( lockArea.classList.contains('hidden') ) {
+                lockArea.classList.remove('hidden');
+            }
+        } else {
+            if ( pwdArea.classList.contains('hidden') ) {
+                pwdArea.classList.remove('hidden');
+            }
+
+            if ( !lockArea.classList.contains('hidden') ) {
+                lockArea.classList.add('hidden');
+            }
+        }
     }
 
     localStorage.setItem('locked', true);
 }
 
-document.getElementById('locked-logo').addEventListener("click",  unlockScreen);
+document.getElementById('locked-logo').addEventListener('click', unlockScreen);
 
 function unlockScreen()
 {
@@ -398,5 +434,41 @@ function unlockScreen()
 
     if ( !lockdiv.classList.contains('hidden') ) {
         lockdiv.classList.add('hidden');
+    }
+
+    localStorage.setItem('locked', false);
+
+    console.log(localStorage);
+}
+
+function appendPassword(val)
+{
+    let input = document.getElementById('password-lock');
+    
+    if ( input.value.length < 9 && !isNaN(val) ) {
+        input.value += val;
+    }
+}
+
+function delPassword()
+{
+    let input = document.getElementById('password-lock');
+    if ( input.value != "" ) {
+        input.value = input.value.slice(0, -1);
+    }
+}
+
+function checkPassword()
+{
+    let input = document.getElementById('password-lock');
+    let passwordStored = localStorage.getItem('password');
+
+    if ( input.value == passwordStored ) {
+        unlockScreen();
+        input.value = "";
+        input.style.backgroundColor = '';
+    } else {
+        input.style.backgroundColor = 'rgb(216, 125, 125)';
+        input.value = "";
     }
 }

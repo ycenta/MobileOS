@@ -23,7 +23,7 @@ body
     /* margin: 20px; */
     /* padding: 20px; */
     padding-left: 1vw;
-    overflow: scroll;
+    overflow-y: scroll;
     height: 90vh;
     font-family: Arial, sans-serif;
     background-color: var( --app-second-bg );
