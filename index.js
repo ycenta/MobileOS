@@ -228,19 +228,28 @@ function loadTopBar(reload = false) {
            
             const batteryStatus = document.getElementById("battery-status");
             if(setting.enabled == true) {
-                navigator.getBattery().then(battery => {
-                    if(battery.level < 0.2) {
-                        batteryStatus.innerHTML = `▂ ${battery.level * 100}%`;
-                    } else if(battery.level < 0.4) {
-                        batteryStatus.innerHTML = `▃ ${battery.level * 100}%`;
-                    } else if(battery.level < 0.6) {
-                        batteryStatus.innerHTML = `▅ ${battery.level * 100}%`;
-                    } else if(battery.level < 0.8) {
-                        batteryStatus.innerHTML = `▆ ${battery.level * 100}%`;
-                    } else {
-                        batteryStatus.innerHTML = `█ ${battery.level * 100}%`;
-                    }
-                });
+
+                //if navigator.getBattery() is not supported
+                if (!navigator.getBattery) {
+                    batteryStatus.innerHTML = "Battery API not supported";
+                }else{
+
+                    navigator.getBattery().then(battery => {
+                        if(battery.level < 0.2) {
+                            batteryStatus.innerHTML = `▂ ${battery.level * 100}%`;
+                        } else if(battery.level < 0.4) {
+                            batteryStatus.innerHTML = `▃ ${battery.level * 100}%`;
+                        } else if(battery.level < 0.6) {
+                            batteryStatus.innerHTML = `▅ ${battery.level * 100}%`;
+                        } else if(battery.level < 0.8) {
+                            batteryStatus.innerHTML = `▆ ${battery.level * 100}%`;
+                        } else {
+                            batteryStatus.innerHTML = `█ ${battery.level * 100}%`;
+                        }
+                    });
+
+                }
+           
 
             }else{
                 batteryStatus.innerHTML = "";
