@@ -20,8 +20,11 @@ body
 }
 
 #settings {
-    margin: 20px;
-    padding: 20px;
+    /* margin: 20px; */
+    /* padding: 20px; */
+    padding-left: 1vw;
+    overflow: scroll;
+    height: 90vh;
     font-family: Arial, sans-serif;
     background-color: var( --app-second-bg );
     color:  var(--app-font-color);
@@ -62,5 +65,12 @@ body
   #settings.darkmode label,
   #settings.darkmode input[type="checkbox"] {
     color: #fff;
+  }
+
+  @media screen and (max-width: 600px) {
+    .input-network
+    {
+      width: 70vw;
+    }
   }
   
