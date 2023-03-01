@@ -1,4 +1,3 @@
-# generate a docker compose file that will run a webserver and serve the static files (current directory)
 version: '3'
 services:
   web:
