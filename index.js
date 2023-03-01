@@ -387,7 +387,7 @@ function handleOrientation(event) {
   x += 90;
   y += 90;
 
-  document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
+//   document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
 }
 
 //Pour le lock screen

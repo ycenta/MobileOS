@@ -1,17 +1,66 @@
 .darkmode
 {
     --app-bg: rgb(26, 26, 26);
+    --app-second-bg :  rgb(32, 32, 32);
     --app-font-color: white;
 }
 
 body
 {
-    --app-bg: #d4d4d4;
+    --app-bg: #f7f7f7;
+    --app-second-bg :  white;
     --app-font-color: black;
 }
+
 
 .app-overlay
 {
     background-color: var(--app-bg)!important;
     color: var(--app-font-color);
 }
+
+#settings {
+    margin: 20px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: var( --app-second-bg );
+    color:  var(--app-font-color);
+  }
+  
+  #settings h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  #settings label {
+    font-size: 14px;
+    margin-left: 5px;
+  }
+  
+  #settings input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  #settings input[type="submit"] {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #settings.darkmode {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  #settings.darkmode label,
+  #settings.darkmode input[type="checkbox"] {
+    color: #fff;
+  }
+  
