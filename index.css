@@ -109,6 +109,8 @@ body{
 }
 
 .close-btn {
+    filter:drop-shadow(0 0 0.75rem rgb(0, 0, 0));
+    text-shadow:0px 0px 1px #000000;
     position: absolute; /* Positionner l'élément en absolu */
     top: 10px; /* Coller à la partie supérieure de l'application */
     right: 10px; /* Coller à la partie droite de l'application */

@@ -37,14 +37,13 @@ class ApplicationEngine {
         return {
             name: name,
             backgroundColor: backgroundColor,
-            render: function() { // Va créer l'élément HTML, peut être changer ça et l'enlever d'ici
+            render: function() { 
                 const app = document.createElement("div");
 
                 // Style de l'application (titre & bg)
                 app.innerHTML = "<h1 id='app-title'>"+this.name.toUpperCase()+"</h1>";
                 app.style.backgroundColor = this.backgroundColor;
                 app.classList.add("app-overlay");
-                // add id = "app-overlay-id"
                 app.setAttribute("id", "app-overlay-id");
 
                 // ajout d'un bouton fermer pour debug
@@ -52,9 +51,6 @@ class ApplicationEngine {
                 closeBtn.innerHTML = "&times;";
                 closeBtn.classList.add("close-btn");
                 closeBtn.setAttribute("id", "close-btn");
-                for (let method in methods) {
-                    app[method] = methods[method];
-                }
 
                 // Import du code de l'application
                 import("/Apps/"+app_file+".js").then(module => {
@@ -201,11 +197,9 @@ function loadTopBar(reload = false) {
     hasHours = true;
     darkmode = false;
     let dateArray = [];
-    let dateString = "";
 
     settingsTopBar.forEach(setting => {
 
-        
        if(setting.name == "checkboxNetwork" ) {   // réseau
             if(setting.enabled == true){
 
@@ -268,7 +262,6 @@ function loadTopBar(reload = false) {
             hasHours = setting.enabled;
         }
         
-        //if setting = vibration, ask for permission
         if(setting.name == "vibration") {
             if(setting.enabled == true) {
                 if (navigator.vibrate) {
@@ -290,7 +283,7 @@ function loadTopBar(reload = false) {
 
             const vibrationStatus = document.getElementById("vibration-status");
             if(setting.enabled == true) {
-                // if vibrationPermission is true in localStorage, print it
+
                 if(localStorage.getItem("vibrationPermission") == "true") {
                     vibrationStatus.innerHTML = "Vibration On📳";
                 } else {
@@ -326,10 +319,14 @@ function loadTopBar(reload = false) {
     topBarInterval = setInterval(() => {
         let datetime = new Date();
         let tmp_hr = ((hasHours ? datetime.getHours() : "") + (hasMinutes ? ":"+datetime.getMinutes(): "") + (hasSeconds ? ":"+datetime.getSeconds() : ""));
-        // if starts with : remove it
-        if(tmp_hr.startsWith(":")) {
+        // if starts with and/or ends with : remove it
+        if (tmp_hr.startsWith(":")) {
             tmp_hr = tmp_hr.substring(1);
         }
+        if (tmp_hr.endsWith(":")) {
+            tmp_hr = tmp_hr.substring(0, tmp_hr.length - 1);
+        }
+       
         time.innerHTML = (tmp_hr);
         lockedtime.innerHTML = (tmp_hr);
     }, 1000);
@@ -357,20 +354,6 @@ function loadTopBar(reload = false) {
 
 
 
-
-
-
-
-
-// Truc à virer, c'est le code pour bouger les icones selon l'orientation de du téléphone/PC
-
-// function handleOrientation(event) {
-//     const absolute = event.absolute;
-//     const alpha = event.alpha;
-//     const beta = event.beta;
-//     const gamma = event.gamma;
-// }
-
 // const output = document.querySelector(".output");
 
 function handleOrientation(event) {
@@ -387,8 +370,10 @@ function handleOrientation(event) {
   x += 90;
   y += 90;
 
-//   document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
+  document.documentElement.style.setProperty("--r-x", ((y/2) -45) + "deg");
 }
+
+window.addEventListener("deviceorientation", handleOrientation);
 
 //Pour le lock screen
 document.getElementById('unlocked-logo').addEventListener('click', lockScreen);
@@ -415,5 +400,3 @@ function unlockScreen()
         lockdiv.classList.add('hidden');
     }
 }
-
-window.addEventListener("deviceorientation", handleOrientation);

@@ -83,6 +83,8 @@ const chrono = {
               
             function startStop() {
 
+              countdownMode = false;
+
               //vibrate 
               //if the localStorage says that the user wants to vibrate, then vibrate, else don't vibrate
               if(localStorage.getItem("vibrationPermission") === "true"){
@@ -197,6 +199,8 @@ const chrono = {
                     reset();
 
                   }
+
+                  // if 
                 }, 1000);
               }
           
