@@ -34,8 +34,8 @@ body
 
 @media screen and (max-width: 600px) {
   .board {
-    width: auto;
-    height: auto;
+    width: 100vw;
+    height: 100vw;
   }
 }
 
